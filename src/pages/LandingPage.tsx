@@ -64,7 +64,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      <Navbar showUserInfo={false} />
+      <Navbar showUserInfo={true} />
       
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20">

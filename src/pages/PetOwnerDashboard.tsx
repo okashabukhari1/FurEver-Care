@@ -117,7 +117,7 @@ const PetOwnerDashboard: React.FC = () => {
             className="text-center mb-12"
           >
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
-              Welcome back, <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{user.name}!</span>
+              Welcome to FurEver, <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{user.name}!</span>
             </h1>
             {user.petName && (
               <p className="text-xl text-gray-600">

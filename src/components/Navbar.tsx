@@ -15,10 +15,11 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
 
   const menuItems = [
     { name: 'Home', path: '/' },
-    { name: 'Pet Care', path: '/pet-care' },
+    { name: 'Pet Care', path: '/PetCare' },
     { name: 'Products', path: '/products' },
     { name: 'Emergency', path: '/emergency' },
     { name: 'Adoption', path: '/adoption' },
+    { name: 'AdoptionRequests', path: '/AdoptionRequests' },
     { name: 'Contact', path: '/contact' },
     { name: 'About', path: '/about' },
     { name: 'Feedback', path: '/feedback' },
@@ -72,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
             {/* User Info */}
             {showUserInfo && user.name && (
               <div className="hidden md:flex items-center space-x-4">
-                <span className="text-sm text-gray-600">Welcome back,</span>
+                <span className="text-sm text-gray-600">Welcome to FurEver,</span>
                 <span className="font-semibold text-gray-800">{user.name}</span>
                 {user.petName && (
                   <span className="text-sm text-gray-600">& {user.petName}</span>
