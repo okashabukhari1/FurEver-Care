@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
 
             {/* User Info */}
             {showUserInfo && user.name && (
-              <div className="hidden md:flex items-center space-x-4">
+              <div className="hidden md:flex items-center">
                 <span className="text-sm text-gray-600">Welcome to FurEver,</span>
                 <span className="font-semibold text-gray-800">{user.name}</span>
                 {user.petName && (
