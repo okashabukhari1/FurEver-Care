@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Stethoscope, 
-  Calendar, 
-  Clock, 
-  User, 
-  Phone, 
-  Mail, 
+import {
+  Stethoscope,
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  Mail,
   MapPin,
   FileText,
   Heart,
@@ -27,7 +27,9 @@ const VeterinarianDashboard: React.FC = () => {
     experience: "8 years",
     license: "VET-2024-001",
     phone: "(555) 123-4567",
-    email: "dr.smith@furevercare.com",
+    email: user.name
+      ? `${user.name.toLowerCase().replace(/\s+/g, '.')}@clinic.com`
+      : "dr.smith@clinic.com",
     address: "123 Veterinary Clinic, Pet City",
     rating: 4.9,
     totalPatients: 1247
@@ -107,7 +109,7 @@ const VeterinarianDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50">
       <Navbar />
-      
+
       {/* Welcome Section */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -201,11 +203,10 @@ const VeterinarianDashboard: React.FC = () => {
                         <p className="text-sm text-blue-600 font-medium">{appointment.type}</p>
                       </div>
                     </div>
-                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      appointment.status === 'confirmed' 
-                        ? 'bg-green-100 text-green-600' 
-                        : 'bg-yellow-100 text-yellow-600'
-                    }`}>
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${appointment.status === 'confirmed'
+                      ? 'bg-green-100 text-green-600'
+                      : 'bg-yellow-100 text-yellow-600'
+                      }`}>
                       {appointment.status}
                     </span>
                   </div>
@@ -238,17 +239,16 @@ const VeterinarianDashboard: React.FC = () => {
                 >
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-gray-800">{case_.petName}</h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                      case_.status === 'Recovered' 
-                        ? 'bg-green-100 text-green-600'
-                        : case_.status === 'Improving'
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${case_.status === 'Recovered'
+                      ? 'bg-green-100 text-green-600'
+                      : case_.status === 'Improving'
                         ? 'bg-blue-100 text-blue-600'
                         : 'bg-yellow-100 text-yellow-600'
-                    }`}>
+                      }`}>
                       {case_.status}
                     </span>
                   </div>
-                  
+
                   <div className="space-y-2 text-sm">
                     <p><span className="font-medium text-gray-700">Species:</span> {case_.species}</p>
                     <p><span className="font-medium text-gray-700">Breed:</span> {case_.breed}</p>
@@ -272,29 +272,29 @@ const VeterinarianDashboard: React.FC = () => {
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Practice Statistics</h2>
             <div className="grid md:grid-cols-4 gap-6">
               {[
-                { 
-                  title: "Appointments Today", 
-                  value: appointments.length.toString(), 
-                  icon: Calendar, 
-                  color: "from-blue-500 to-cyan-500" 
+                {
+                  title: "Appointments Today",
+                  value: appointments.length.toString(),
+                  icon: Calendar,
+                  color: "from-blue-500 to-cyan-500"
                 },
-                { 
-                  title: "Active Cases", 
-                  value: medicalCases.filter(c => c.status === 'Ongoing').length.toString(), 
-                  icon: Activity, 
-                  color: "from-green-500 to-emerald-500" 
+                {
+                  title: "Active Cases",
+                  value: medicalCases.filter(c => c.status === 'Ongoing').length.toString(),
+                  icon: Activity,
+                  color: "from-green-500 to-emerald-500"
                 },
-                { 
-                  title: "Patient Rating", 
-                  value: vetProfile.rating.toString(), 
-                  icon: Heart, 
-                  color: "from-pink-500 to-rose-500" 
+                {
+                  title: "Patient Rating",
+                  value: vetProfile.rating.toString(),
+                  icon: Heart,
+                  color: "from-pink-500 to-rose-500"
                 },
-                { 
-                  title: "Years Experience", 
-                  value: vetProfile.experience.split(' ')[0], 
-                  icon: Award, 
-                  color: "from-purple-500 to-indigo-500" 
+                {
+                  title: "Years Experience",
+                  value: vetProfile.experience.split(' ')[0],
+                  icon: Award,
+                  color: "from-purple-500 to-indigo-500"
                 }
               ].map((stat, index) => (
                 <motion.div

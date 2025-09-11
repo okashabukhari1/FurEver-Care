@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -20,21 +20,83 @@ import { useUser } from '../context/UserContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
+interface PetProfile {
+  name: string;
+  species: string;
+  breed: string;
+  age: string;
+  weight: string;
+  microchipId: string;
+  lastVetVisit: string;
+  nextVaccination: string;
+  medications: string;
+}
+
 const PetOwnerDashboard: React.FC = () => {
   const { user } = useUser();
-  const [selectedPetProfile, setSelectedPetProfile] = useState(null);
+  const [petProfile, setPetProfile] = useState<PetProfile | null>(null);
 
-  const petProfile = {
+  useEffect(() => {
+    // Helper to generate a unique microchip ID
+    const generateMicrochipId = () => {
+      const timestamp = Date.now().toString();
+      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+      return `MC${timestamp.slice(-6)}${random}`;
+    };
+
+    const defaultExtras = {
+      lastVetVisit: 'Feb 15, 2025',
+      nextVaccination: 'May 15, 2025',
+      medications: 'None currently',
+    };
+
+    // Load pet profile from localStorage or create a default one
+    const savedProfile = localStorage.getItem('petProfile');
+    if (savedProfile) {
+      const parsed = JSON.parse(savedProfile);
+      // Merge defaults for any missing fields
+      const merged: PetProfile = {
+        name: parsed.name ?? (user.petName || 'Your Pet'),
+        species: parsed.species ?? 'Dog',
+        breed: parsed.breed ?? 'Unknown',
+        age: parsed.age ?? 'Unknown',
+        weight: parsed.weight ?? 'Unknown',
+        microchipId: parsed.microchipId ?? generateMicrochipId(),
+        lastVetVisit: parsed.lastVetVisit ?? defaultExtras.lastVetVisit,
+        nextVaccination: parsed.nextVaccination ?? defaultExtras.nextVaccination,
+        medications: parsed.medications ?? defaultExtras.medications,
+      };
+      // Persist merged profile back to storage to keep schema consistent
+      localStorage.setItem('petProfile', JSON.stringify(merged));
+      setPetProfile(merged);
+    } else {
+      const defaultNewProfile: PetProfile = {
+        name: user.petName || 'Your Pet',
+        species: 'Dog',
+        breed: 'Unknown',
+        age: 'Unknown',
+        weight: 'Unknown',
+        microchipId: generateMicrochipId(),
+        lastVetVisit: defaultExtras.lastVetVisit,
+        nextVaccination: defaultExtras.nextVaccination,
+        medications: defaultExtras.medications,
+      };
+      localStorage.setItem('petProfile', JSON.stringify(defaultNewProfile));
+      setPetProfile(defaultNewProfile);
+    }
+  }, []);
+
+  // Ensure we always have a profile to display
+  const displayProfile = petProfile || {
     name: user.petName || "Your Pet",
     species: "Dog",
-    breed: "Golden Retriever",
-    age: "3 years",
-    weight: "65 lbs",
-    lastVetVisit: "Feb 15, 2025",
-    nextVaccination: "May 15, 2025",
-    microchipId: "123456789",
-    allergies: "None known",
-    medications: "Monthly heartworm prevention"
+    breed: "Unknown",
+    age: "Unknown",
+    weight: "Unknown",
+    microchipId: "Pending",
+    lastVetVisit: 'Feb 15, 2025',
+    nextVaccination: 'May 15, 2025',
+    medications: 'None currently',
   };
 
   const careCards = [
@@ -119,9 +181,9 @@ const PetOwnerDashboard: React.FC = () => {
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
               Welcome to FurEver, <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{user.name}!</span>
             </h1>
-            {user.petName && (
+            {displayProfile.name && (
               <p className="text-xl text-gray-600">
-                Let's take great care of <span className="font-semibold text-purple-600">{user.petName}</span> today
+                Let's take great care of <span className="font-semibold text-purple-600">{displayProfile.name}</span> today
               </p>
             )}
           </motion.div>
@@ -137,7 +199,7 @@ const PetOwnerDashboard: React.FC = () => {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-3xl font-bold text-gray-800 flex items-center">
                 <Heart className="w-8 h-8 text-pink-500 mr-3" />
-                {petProfile.name}'s Profile
+                {displayProfile.name}'s Profile
               </h2>
               <span className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full text-sm font-semibold">
                 Healthy & Happy
@@ -146,14 +208,14 @@ const PetOwnerDashboard: React.FC = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { label: "Species", value: petProfile.species, icon: Heart },
-                { label: "Breed", value: petProfile.breed, icon: Info },
-                { label: "Age", value: petProfile.age, icon: Calendar },
-                { label: "Weight", value: petProfile.weight, icon: Award },
-                { label: "Last Vet Visit", value: petProfile.lastVetVisit, icon: Stethoscope },
-                { label: "Next Vaccination", value: petProfile.nextVaccination, icon: Calendar },
-                { label: "Microchip ID", value: petProfile.microchipId, icon: Info },
-                { label: "Current Medications", value: petProfile.medications, icon: Stethoscope }
+                { label: "Species", value: displayProfile.species, icon: Heart },
+                { label: "Breed", value: displayProfile.breed, icon: Info },
+                { label: "Age", value: displayProfile.age, icon: Calendar },
+                { label: "Weight", value: displayProfile.weight, icon: Award },
+                { label: "Last Vet Visit", value: displayProfile.lastVetVisit, icon: Stethoscope },
+                { label: "Next Vaccination", value: displayProfile.nextVaccination, icon: Calendar },
+                { label: "Microchip ID", value: displayProfile.microchipId, icon: Info },
+                { label: "Current Medications", value: displayProfile.medications, icon: Stethoscope }
               ].map((item, index) => (
                 <motion.div
                   key={index}

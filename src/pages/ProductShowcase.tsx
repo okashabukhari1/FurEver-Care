@@ -40,13 +40,13 @@ const ProductShowcase: React.FC = () => {
           : [];
         setFavorites(ids);
       }
-    } catch {}
+    } catch { }
   }, []);
 
   useEffect(() => {
     let filtered = products.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           product.description.toLowerCase().includes(searchTerm.toLowerCase());
+        product.description.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
@@ -71,13 +71,19 @@ const ProductShowcase: React.FC = () => {
 
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
 
+  // ✅ Only one toggle method (floating heart button)
   const toggleFavorite = (productId: number) => {
     setFavorites(prev => {
       const numericId = Number(productId);
       const next = prev.includes(numericId)
         ? prev.filter(id => id !== numericId)
         : Array.from(new Set([...prev, numericId]));
+
       localStorage.setItem('wishlist', JSON.stringify(next));
+
+      // 👇 trigger storage event so Wishlist updates instantly
+      window.dispatchEvent(new StorageEvent('storage', { key: 'wishlist' }));
+
       return next;
     });
   };
@@ -85,7 +91,7 @@ const ProductShowcase: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
       <Navbar />
-      
+
       {/* Header */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -152,17 +158,15 @@ const ProductShowcase: React.FC = () => {
               <div className="flex bg-gray-100 rounded-lg p-1">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-md transition-all duration-300 ${
-                    viewMode === 'grid' ? 'bg-white shadow-md text-purple-600' : 'text-gray-600'
-                  }`}
+                  className={`p-2 rounded-md transition-all duration-300 ${viewMode === 'grid' ? 'bg-white shadow-md text-purple-600' : 'text-gray-600'
+                    }`}
                 >
                   <Grid className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-md transition-all duration-300 ${
-                    viewMode === 'list' ? 'bg-white shadow-md text-purple-600' : 'text-gray-600'
-                  }`}
+                  className={`p-2 rounded-md transition-all duration-300 ${viewMode === 'list' ? 'bg-white shadow-md text-purple-600' : 'text-gray-600'
+                    }`}
                 >
                   <List className="w-5 h-5" />
                 </button>
@@ -185,8 +189,8 @@ const ProductShowcase: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className={viewMode === 'grid' 
-              ? "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" 
+            className={viewMode === 'grid'
+              ? "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
               : "space-y-4"
             }
           >
@@ -197,9 +201,8 @@ const ProductShowcase: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
                 whileHover={{ y: -5 }}
-                className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden ${
-                  viewMode === 'list' ? 'flex' : ''
-                }`}
+                className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden ${viewMode === 'list' ? 'flex' : ''
+                  }`}
               >
                 {/* Product Image */}
                 <div className={`relative ${viewMode === 'list' ? 'w-48 h-48' : 'h-48'} overflow-hidden`}>
@@ -212,11 +215,10 @@ const ProductShowcase: React.FC = () => {
                     type="button"
                     onClick={(e) => { e.stopPropagation(); toggleFavorite(product.id); }}
                     aria-pressed={favorites.includes(product.id)}
-                    className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-                      favorites.includes(product.id) 
-                        ? 'bg-pink-500 text-white' 
+                    className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${favorites.includes(product.id)
+                        ? 'bg-pink-500 text-white'
                         : 'bg-white/80 text-gray-600 hover:bg-pink-500 hover:text-white'
-                    }`}
+                      }`}
                   >
                     <Heart className="w-4 h-4" fill={favorites.includes(product.id) ? 'currentColor' : 'none'} />
                   </button>
@@ -248,32 +250,10 @@ const ProductShowcase: React.FC = () => {
                   </p>
 
                   <div className="flex items-center justify-center">
-                    <div className="flex flex-col items-stretch gap-2 w-56">
+                    <div className="flex items-stretch gap-2 w-56">
                       <span className="text-2xl font-bold text-purple-600 text-center">
                         ${product.price}
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (!favorites.includes(product.id)) {
-                            setFavorites(prev => {
-                              const next = [...prev, product.id];
-                              localStorage.setItem('wishlist', JSON.stringify(next));
-                              return next;
-                            });
-                          }
-                        }}
-                        disabled={favorites.includes(product.id)}
-                        aria-pressed={favorites.includes(product.id)}
-                        className={`flex items-center justify-center space-x-2 px-4 py-2 rounded-lg font-semibold border transition-all duration-300 ${
-                          favorites.includes(product.id)
-                            ? 'bg-pink-50 text-pink-600 border-pink-300 cursor-not-allowed'
-                            : 'bg-white text-gray-700 border-gray-200 hover:bg-pink-50 hover:text-pink-600 hover:border-pink-300'
-                        }`}
-                      >
-                        <Heart className="w-4 h-4" fill={favorites.includes(product.id) ? 'currentColor' : 'none'} />
-                        <span>{favorites.includes(product.id) ? 'Added to Wishlist' : 'Add to Wishlist'}</span>
-                      </button>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
