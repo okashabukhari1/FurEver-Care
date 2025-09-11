@@ -30,6 +30,17 @@ const ProductShowcase: React.FC = () => {
   useEffect(() => {
     setProducts(productData.products);
     setFilteredProducts(productData.products);
+    // Load favorites from localStorage
+    try {
+      const raw = localStorage.getItem('wishlist');
+      if (raw) {
+        const parsed = JSON.parse(raw) as unknown;
+        const ids = Array.isArray(parsed)
+          ? Array.from(new Set(parsed.map((v) => Number(v)).filter((n) => Number.isFinite(n))))
+          : [];
+        setFavorites(ids);
+      }
+    } catch {}
   }, []);
 
   useEffect(() => {
@@ -61,11 +72,14 @@ const ProductShowcase: React.FC = () => {
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
 
   const toggleFavorite = (productId: number) => {
-    setFavorites(prev => 
-      prev.includes(productId) 
-        ? prev.filter(id => id !== productId)
-        : [...prev, productId]
-    );
+    setFavorites(prev => {
+      const numericId = Number(productId);
+      const next = prev.includes(numericId)
+        ? prev.filter(id => id !== numericId)
+        : Array.from(new Set([...prev, numericId]));
+      localStorage.setItem('wishlist', JSON.stringify(next));
+      return next;
+    });
   };
 
   return (
@@ -195,8 +209,10 @@ const ProductShowcase: React.FC = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <button
-                    onClick={() => toggleFavorite(product.id)}
-                    className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); toggleFavorite(product.id); }}
+                    aria-pressed={favorites.includes(product.id)}
+                    className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
                       favorites.includes(product.id) 
                         ? 'bg-pink-500 text-white' 
                         : 'bg-white/80 text-gray-600 hover:bg-pink-500 hover:text-white'
@@ -231,19 +247,43 @@ const ProductShowcase: React.FC = () => {
                     {product.description}
                   </p>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-purple-600">
-                      ${product.price}
-                    </span>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      disabled={!product.inStock}
-                      className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all duration-300"
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                      <span>Buy Now</span>
-                    </motion.button>
+                  <div className="flex items-center justify-center">
+                    <div className="flex flex-col items-stretch gap-2 w-56">
+                      <span className="text-2xl font-bold text-purple-600 text-center">
+                        ${product.price}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (!favorites.includes(product.id)) {
+                            setFavorites(prev => {
+                              const next = [...prev, product.id];
+                              localStorage.setItem('wishlist', JSON.stringify(next));
+                              return next;
+                            });
+                          }
+                        }}
+                        disabled={favorites.includes(product.id)}
+                        aria-pressed={favorites.includes(product.id)}
+                        className={`flex items-center justify-center space-x-2 px-4 py-2 rounded-lg font-semibold border transition-all duration-300 ${
+                          favorites.includes(product.id)
+                            ? 'bg-pink-50 text-pink-600 border-pink-300 cursor-not-allowed'
+                            : 'bg-white text-gray-700 border-gray-200 hover:bg-pink-50 hover:text-pink-600 hover:border-pink-300'
+                        }`}
+                      >
+                        <Heart className="w-4 h-4" fill={favorites.includes(product.id) ? 'currentColor' : 'none'} />
+                        <span>{favorites.includes(product.id) ? 'Added to Wishlist' : 'Add to Wishlist'}</span>
+                      </button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        disabled={!product.inStock}
+                        className="flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all duration-300"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        <span>Buy Now</span>
+                      </motion.button>
+                    </div>
                   </div>
                 </div>
               </motion.div>

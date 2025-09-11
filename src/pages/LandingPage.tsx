@@ -15,7 +15,7 @@ const LandingPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (userName && userType) {
+    if (userName && userType && (userType !== 'pet-owner' || petName)) {
       setUser({ name: userName, userType, petName });
       
       switch (userType) {
@@ -147,10 +147,12 @@ const LandingPage: React.FC = () => {
                     <input
                       type="text"
                       value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      onChange={(e) => setUserName(e.target.value.replace(/[^A-Za-z\s'\-]/g, ''))}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 bg-white/50"
                       placeholder="Enter your first name"
                       required
+                      pattern="^[A-Za-z\s'-]{2,50}$"
+                      title="Please enter a valid name (letters, spaces, apostrophes, hyphens)."
                     />
                   </div>
 
@@ -212,14 +214,17 @@ const LandingPage: React.FC = () => {
                       transition={{ duration: 0.3 }}
                     >
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Pet's Name (Optional)
+                        Pet's Name
                       </label>
                       <input
                         type="text"
                         value={petName}
-                        onChange={(e) => setPetName(e.target.value)}
+                        onChange={(e) => setPetName(e.target.value.replace(/[^A-Za-z\s'\-]/g, ''))}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 bg-white/50"
                         placeholder="Enter your pet's name"
+                        pattern="^[A-Za-z\s'-]{1,50}$"
+                        title="Please enter a valid name (letters, spaces, apostrophes, hyphens)."
+                        required
                       />
                     </motion.div>
                   )}
@@ -229,7 +234,7 @@ const LandingPage: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    disabled={!userName || !userType}
+                    disabled={!userName || !userType || (userType === 'pet-owner' && !petName)}
                     className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                   >
                     <span>Enter FurEver Care</span>

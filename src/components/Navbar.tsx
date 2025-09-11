@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, Menu, X, Clock, MapPin, Users } from 'lucide-react';
 import { useUser } from '../context/UserContext';
@@ -15,8 +15,9 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
 
   const menuItems = [
     { name: 'Home', path: '/' },
-    { name: 'Pet Care', path: '/PetCare' },
+    { name: 'Pet Care', path: '/petcare' },
     { name: 'Products', path: '/products' },
+    { name: 'Wishlist', path: '/wishlist' },
     { name: 'Emergency', path: '/emergency' },
     { name: 'Adoption', path: '/adoption' },
     { name: 'AdoptionRequests', path: '/AdoptionRequests' },
@@ -90,13 +91,17 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Link
+                  <NavLink
                     to={item.path}
-                    className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-300 relative group"
+                    className={({ isActive }) =>
+                      `relative group font-medium transition-colors duration-300 ${
+                        isActive ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+                      }`
+                    }
                   >
                     {item.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-300 group-hover:w-full"></span>
-                  </Link>
+                    <span className="pointer-events-none absolute -bottom-1 left-0 h-0.5 bg-purple-600 transition-all duration-300 w-0 group-hover:w-full group-[aria-current=page]:w-full"></span>
+                  </NavLink>
                 </motion.div>
               ))}
             </div>
@@ -129,14 +134,21 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                 </div>
               )}
               {menuItems.map((item) => (
-                <Link
+                <NavLink
                   key={item.name}
                   to={item.path}
-                  className="block px-3 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-md transition-colors duration-300"
+                  className={({ isActive }) =>
+                    `relative group block px-3 py-2 rounded-md transition-colors duration-300 ${
+                      isActive
+                        ? 'text-purple-700 bg-purple-100'
+                        : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
+                    }`
+                  }
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
-                </Link>
+                  <span className="pointer-events-none absolute bottom-0 left-3 right-3 mx-auto h-0.5 bg-purple-600 transition-all duration-300 w-0 group-hover:w-[calc(100%-24px)] group-[aria-current=page]:w-[calc(100%-24px)]"></span>
+                </NavLink>
               ))}
             </div>
           </motion.div>

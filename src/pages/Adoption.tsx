@@ -177,6 +177,8 @@ export default function Adoption() {
                                 type="text"
                                 placeholder="Your Name"
                                 required
+                                pattern="^[A-Za-z\s'-]{2,60}$"
+                                title="Please enter a valid name (letters, spaces, apostrophes, hyphens)."
                                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-400"
                             />
                             <input

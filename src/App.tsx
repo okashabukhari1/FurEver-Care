@@ -13,6 +13,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import PetCare from "./pages/PetCare";
 import Adoption from "./pages/Adoption";
 import AdoptionRequests from "./pages/AdoptionRequests";
+import Wishlist from './pages/Wishlist';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +50,7 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/emergency" element={<EmergencyPage />} />
               <Route path="/products" element={<ProductShowcase />} />
+              <Route path="/wishlist" element={<Wishlist />} />
             </Routes>
           </motion.div>
         </div>

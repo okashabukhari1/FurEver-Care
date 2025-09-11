@@ -14,7 +14,14 @@ const ContactPage: React.FC = () => {
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    let { value } = e.target;
+    if (name === 'name') {
+      value = value.replace(/[^A-Za-z\s'\-]/g, '');
+    }
+    if (name === 'phone') {
+      value = value.replace(/[^0-9+().\-\s]/g, '');
+    }
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -165,6 +172,8 @@ const ContactPage: React.FC = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
+                      pattern="^[A-Za-z\s'-]{2,60}$"
+                      title="Please enter a valid name (letters, spaces, apostrophes, hyphens)."
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300"
                       placeholder="Enter your full name"
                     />
@@ -195,6 +204,8 @@ const ContactPage: React.FC = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
+                      pattern="^\+?[0-9\s().-]{7,20}$"
+                      title="Please enter a valid phone number."
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300"
                       placeholder="Enter your phone number"
                     />

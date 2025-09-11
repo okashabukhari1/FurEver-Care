@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
@@ -46,11 +47,18 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-xl font-semibold text-pink-400">Quick Links</h3>
             <ul className="space-y-2">
-              {['Pet Care Guide', 'Product Showcase', 'Emergency Help', 'Adoption Center', 'Veterinary Services'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:pl-2">
-                    {link}
-                  </a>
+              {[
+                { label: 'Home', to: '/' },
+                { label: 'Pet Care Guide', to: '/petcare' },
+                { label: 'Product Showcase', to: '/products' },
+                { label: 'Emergency Help', to: '/emergency' },
+                { label: 'Adoption Center', to: '/adoption' },
+                { label: 'Veterinary Services', to: '/veterinarian' }
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link to={item.to} className="text-gray-300 hover:text-white transition-colors duration-300 hover:pl-2">
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
