@@ -1,0 +1,82 @@
+{
+  "emergencyContacts": [
+    {
+      "id": 1,
+      "category": "24/7 Veterinary Clinics",
+      "contacts": [
+        {
+          "name": "Emergency Vet Center",
+          "phone": "(555) 123-VETS",
+          "address": "123 Pet Care Ave, Pet City",
+          "services": "24/7 Emergency Care, Surgery, ICU"
+        },
+        {
+          "name": "Animal Emergency Hospital",
+          "phone": "(555) 456-PETS",
+          "address": "456 Animal Way, Pet City",
+          "services": "Emergency Treatment, Trauma Care, Radiology"
+        },
+        {
+          "name": "Pet Emergency Clinic",
+          "phone": "(555) 789-HELP",
+          "address": "789 Care Street, Pet City",
+          "services": "Critical Care, Emergency Surgery, Lab Services"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category": "Poison Control",
+      "contacts": [
+        {
+          "name": "ASPCA Poison Control Center",
+          "phone": "(888) 426-4435",
+          "address": "National Hotline",
+          "services": "24/7 Pet Poison Emergency Assistance"
+        },
+        {
+          "name": "Pet Poison Helpline",
+          "phone": "(855) 764-7661",
+          "address": "National Hotline",
+          "services": "Toxicology Experts, Emergency Treatment Advice"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "category": "Mobile Veterinarians",
+      "contacts": [
+        {
+          "name": "Mobile Pet Care Services",
+          "phone": "(555) 321-MOBI",
+          "address": "Serves Pet City Area",
+          "services": "House Calls, Vaccinations, Health Checkups"
+        },
+        {
+          "name": "VetToYou Mobile Services",
+          "phone": "(555) 654-HOME",
+          "address": "Citywide Service",
+          "services": "In-Home Care, Senior Pet Services, End-of-Life Care"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "category": "Animal Hospitals",
+      "contacts": [
+        {
+          "name": "Central Animal Hospital",
+          "phone": "(555) 111-HEAL",
+          "address": "111 Health Blvd, Pet City",
+          "services": "Full Service Hospital, Specialty Care, Boarding"
+        },
+        {
+          "name": "Pet Medical Center",
+          "phone": "(555) 222-CARE",
+          "address": "222 Medical Plaza, Pet City",
+          "services": "Internal Medicine, Cardiology, Oncology"
+        }
+      ]
+    }
+  ]
+}

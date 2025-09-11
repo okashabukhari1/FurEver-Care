@@ -1,0 +1,124 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Premium Dry Dog Food - Adult Formula",
+      "category": "Dog Food",
+      "image": "https://images.pexels.com/photos/1564506/pexels-photo-1564506.jpeg",
+      "description": "High-quality nutrition for adult dogs with real chicken as the first ingredient. Supports healthy digestion and shiny coat.",
+      "price": 49.99,
+      "rating": 4.8,
+      "inStock": true
+    },
+    {
+      "id": 2,
+      "name": "Interactive Puzzle Toy",
+      "category": "Toys",
+      "image": "https://images.pexels.com/photos/3687540/pexels-photo-3687540.jpeg",
+      "description": "Mental stimulation toy that challenges your dog while rewarding with treats. Reduces boredom and anxiety.",
+      "price": 24.99,
+      "rating": 4.6,
+      "inStock": true
+    },
+    {
+      "id": 3,
+      "name": "Professional Grooming Kit",
+      "category": "Grooming Essentials",
+      "image": "https://images.pexels.com/photos/6853733/pexels-photo-6853733.jpeg",
+      "description": "Complete grooming set with brush, nail clippers, shampoo, and towel. Everything you need for professional grooming at home.",
+      "price": 89.99,
+      "rating": 4.9,
+      "inStock": true
+    },
+    {
+      "id": 4,
+      "name": "Orthopedic Pet Bed - Large",
+      "category": "Bedding and Apparel",
+      "image": "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+      "description": "Memory foam bed provides joint support and comfort. Removable, washable cover with non-slip bottom.",
+      "price": 79.99,
+      "rating": 4.7,
+      "inStock": true
+    },
+    {
+      "id": 5,
+      "name": "Omega-3 Fish Oil Supplements",
+      "category": "Health Supplements",
+      "image": "https://images.pexels.com/photos/3683107/pexels-photo-3683107.jpeg",
+      "description": "Pure fish oil capsules for healthy skin, shiny coat, and joint support. Vet-recommended formula.",
+      "price": 34.99,
+      "rating": 4.8,
+      "inStock": true
+    },
+    {
+      "id": 6,
+      "name": "Gourmet Cat Food - Salmon Recipe",
+      "category": "Cat Food",
+      "image": "https://images.pexels.com/photos/6894328/pexels-photo-6894328.jpeg",
+      "description": "Premium wet cat food made with real salmon. Rich in protein and omega fatty acids for optimal feline health.",
+      "price": 32.99,
+      "rating": 4.9,
+      "inStock": true
+    },
+    {
+      "id": 7,
+      "name": "Feather Wand Cat Toy",
+      "category": "Toys",
+      "image": "https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg",
+      "description": "Interactive feather toy that encourages natural hunting instincts. Promotes exercise and mental stimulation.",
+      "price": 12.99,
+      "rating": 4.5,
+      "inStock": true
+    },
+    {
+      "id": 8,
+      "name": "Stainless Steel Food Bowls Set",
+      "category": "Feeding Accessories",
+      "image": "https://images.pexels.com/photos/7210265/pexels-photo-7210265.jpeg",
+      "description": "Non-slip, dishwasher-safe bowls perfect for food and water. Includes two bowls with rubber base.",
+      "price": 18.99,
+      "rating": 4.6,
+      "inStock": true
+    },
+    {
+      "id": 9,
+      "name": "Waterproof Dog Jacket",
+      "category": "Bedding and Apparel",
+      "image": "https://images.pexels.com/photos/8434791/pexels-photo-8434791.jpeg",
+      "description": "Keeps your dog warm and dry during walks. Reflective strips for night visibility. Available in multiple sizes.",
+      "price": 42.99,
+      "rating": 4.4,
+      "inStock": true
+    },
+    {
+      "id": 10,
+      "name": "Dental Health Chew Treats",
+      "category": "Health Supplements",
+      "image": "https://images.pexels.com/photos/4587959/pexels-photo-4587959.jpeg",
+      "description": "Vet-approved dental chews that reduce tartar buildup and freshen breath. Made with natural ingredients.",
+      "price": 19.99,
+      "rating": 4.7,
+      "inStock": true
+    },
+    {
+      "id": 11,
+      "name": "Automatic Pet Feeder",
+      "category": "Feeding Accessories",
+      "image": "https://images.pexels.com/photos/8434787/pexels-photo-8434787.jpeg",
+      "description": "Programmable feeder with portion control. Ideal for maintaining feeding schedules when you're away.",
+      "price": 89.99,
+      "rating": 4.3,
+      "inStock": true
+    },
+    {
+      "id": 12,
+      "name": "Cat Scratching Post Tower",
+      "category": "Toys",
+      "image": "https://images.pexels.com/photos/1543793/pexels-photo-1543793.jpeg",
+      "description": "Multi-level scratching post with hanging toys and cozy hiding spots. Protects furniture while entertaining cats.",
+      "price": 129.99,
+      "rating": 4.8,
+      "inStock": true
+    }
+  ]
+}

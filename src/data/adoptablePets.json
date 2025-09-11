@@ -1,0 +1,157 @@
+{
+  "adoptablePets": [
+    {
+      "id": 1,
+      "name": "Luna",
+      "type": "Dog",
+      "breed": "Golden Retriever Mix",
+      "age": "2 years",
+      "gender": "Female",
+      "image": "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg",
+      "description": "Luna is a gentle, loving dog who gets along great with children and other pets. She's house-trained and knows basic commands.",
+      "personality": ["Friendly", "Gentle", "Playful"],
+      "medicalInfo": "Up to date on vaccinations, spayed",
+      "location": "Pet City Animal Shelter"
+    },
+    {
+      "id": 2,
+      "name": "Shadow",
+      "type": "Cat",
+      "breed": "Domestic Shorthair",
+      "age": "1 year",
+      "gender": "Male",
+      "image": "https://images.pexels.com/photos/2194261/pexels-photo-2194261.jpeg",
+      "description": "Shadow is a curious and affectionate cat who loves to explore. He's great with other cats and enjoys interactive play.",
+      "personality": ["Curious", "Affectionate", "Independent"],
+      "medicalInfo": "Vaccinated, neutered, microchipped",
+      "location": "Pet City Animal Shelter"
+    },
+    {
+      "id": 3,
+      "name": "Buddy",
+      "type": "Dog",
+      "breed": "Labrador Mix",
+      "age": "5 years",
+      "gender": "Male",
+      "image": "https://images.pexels.com/photos/1458925/pexels-photo-1458925.jpeg",
+      "description": "Buddy is a calm, well-mannered dog perfect for families. He loves walks and is excellent with children of all ages.",
+      "personality": ["Calm", "Loyal", "Patient"],
+      "medicalInfo": "Fully vaccinated, neutered, heartworm negative",
+      "location": "Pet City Animal Shelter"
+    },
+    {
+      "id": 4,
+      "name": "Whiskers",
+      "type": "Cat",
+      "breed": "Maine Coon Mix",
+      "age": "3 years",
+      "gender": "Female",
+      "image": "https://images.pexels.com/photos/1183434/pexels-photo-1183434.jpeg",
+      "description": "Whiskers is a beautiful, fluffy cat with a sweet disposition. She enjoys quiet environments and loves being petted.",
+      "personality": ["Sweet", "Quiet", "Loving"],
+      "medicalInfo": "Spayed, vaccinated, FIV/FeLV negative",
+      "location": "Pet City Animal Shelter"
+    },
+    {
+      "id": 5,
+      "name": "Max",
+      "type": "Dog",
+      "breed": "German Shepherd Mix",
+      "age": "4 years",
+      "gender": "Male",
+      "image": "https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg",
+      "description": "Max is an intelligent, protective dog who bonds strongly with his family. He needs an active home with experienced dog owners.",
+      "personality": ["Intelligent", "Protective", "Active"],
+      "medicalInfo": "Vaccinated, neutered, microchipped",
+      "location": "Pet City Animal Shelter"
+    },
+    {
+      "id": 6,
+      "name": "Mittens",
+      "type": "Cat",
+      "breed": "Siamese Mix",
+      "age": "6 months",
+      "gender": "Female",
+      "image": "https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg",
+      "description": "Mittens is a playful kitten with stunning blue eyes. She's very social and would do well with other cats or as an only pet with lots of attention.",
+      "personality": ["Playful", "Social", "Energetic"],
+      "medicalInfo": "Age-appropriate vaccinations, scheduled to be spayed",
+      "location": "Pet City Animal Shelter"
+    },
+    {
+      "id": 7,
+      "name": "Charlie",
+      "type": "Rabbit",
+      "breed": "Holland Lop",
+      "age": "1.5 years",
+      "gender": "Male",
+      "image": "https://images.pexels.com/photos/3361739/pexels-photo-3361739.jpeg",
+      "description": "Charlie is a gentle rabbit who enjoys being petted and is litter trained. He would make a wonderful companion for a quiet household.",
+      "personality": ["Gentle", "Quiet", "Affectionate"],
+      "medicalInfo": "Neutered, vaccinated",
+      "location": "Pet City Animal Shelter"
+    },
+    {
+      "id": 8,
+      "name": "Bella",
+      "type": "Dog",
+      "breed": "Beagle Mix",
+      "age": "3 years",
+      "gender": "Female",
+      "image": "https://images.pexels.com/photos/1390361/pexels-photo-1390361.jpeg",
+      "description": "Bella is a sweet, medium-sized dog with a gentle nature. She loves going for walks and playing fetch in the yard.",
+      "personality": ["Sweet", "Gentle", "Active"],
+      "medicalInfo": "Spayed, vaccinated, heartworm negative",
+      "location": "Pet City Animal Shelter"
+    }
+  ],
+  "successStories": [
+    {
+      "id": 1,
+      "petName": "Rocky",
+      "adopterName": "The Johnson Family",
+      "story": "Rocky was adopted by the Johnson family in 2023 and has become the perfect companion for their two young children. He loves playing in their backyard and has brought so much joy to their home.",
+      "image": "https://images.pexels.com/photos/1619690/pexels-photo-1619690.jpeg"
+    },
+    {
+      "id": 2,
+      "petName": "Princess",
+      "adopterName": "Sarah Miller",
+      "story": "Princess was a shy cat who needed extra patience and love. Sarah provided exactly that, and now Princess is a confident, happy cat who loves to curl up on Sarah's lap while she reads.",
+      "image": "https://images.pexels.com/photos/1267335/pexels-photo-1267335.jpeg"
+    },
+    {
+      "id": 3,
+      "petName": "Duke",
+      "adopterName": "The Martinez Family",
+      "story": "Duke was adopted by the Martinez family and has become their hiking companion. He's helped them stay active and has made their outdoor adventures even more enjoyable.",
+      "image": "https://images.pexels.com/photos/1254140/pexels-photo-1254140.jpeg"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Weekend Adoption Drive",
+      "date": "March 15-17, 2025",
+      "time": "10:00 AM - 4:00 PM",
+      "location": "Pet City Animal Shelter",
+      "description": "Join us for our monthly adoption drive! Meet dozens of loving pets looking for their forever homes. All adoption fees reduced by 50%."
+    },
+    {
+      "id": 2,
+      "title": "Free Vaccination Clinic",
+      "date": "March 22, 2025",
+      "time": "9:00 AM - 2:00 PM",
+      "location": "Pet City Community Center",
+      "description": "Free vaccinations for pets of families in need. Sponsored by local veterinarians and FurEver Care. No appointment necessary."
+    },
+    {
+      "id": 3,
+      "title": "Pet Training Workshop",
+      "date": "March 29, 2025",
+      "time": "2:00 PM - 4:00 PM",
+      "location": "Pet City Animal Shelter",
+      "description": "Learn basic training techniques and socialization tips from professional trainers. Open to all pet owners, refreshments provided."
+    }
+  ]
+}
