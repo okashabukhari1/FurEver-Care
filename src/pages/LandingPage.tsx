@@ -96,19 +96,21 @@ const LandingPage: React.FC = () => {
       setFormStep('pet-profile');
     } else {
       // For non-pet owners, proceed directly
-      setUser({ name: userName, userType, petName: '' });
+      const newUser = { name: userName, userType, petName: '' };
+      setUser(newUser);
+      localStorage.setItem("user", JSON.stringify(newUser));
       navigateToDashboard();
     }
   };
+
 
   const handlePetProfileSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { [key: string]: string } = {};
 
-    // Validate all pet profile fields
+    // Validate fields
     if (!petProfile.species.trim()) newErrors.species = 'Species is required';
 
-    // Breed: only letters/spaces/'-/'
     if (!petProfile.breed.trim()) {
       newErrors.breed = 'Breed is required';
     } else {
@@ -118,7 +120,6 @@ const LandingPage: React.FC = () => {
       }
     }
 
-    // Age: number with optional unit (years/yrs/months/mos/weeks/wks/days)
     if (!petProfile.age.trim()) {
       newErrors.age = 'Age is required';
     } else {
@@ -128,17 +129,15 @@ const LandingPage: React.FC = () => {
       }
     }
 
-    // Weight: number with optional unit (kg/kgs/kilograms/lb/lbs/pounds)
     if (!petProfile.weight.trim()) {
       newErrors.weight = 'Weight is required';
     } else {
       const weightRegex = /^\d{1,3}(?:\.\d)?\s*(?:kg|kgs|kilograms|lb|lbs|pounds)?$/i;
       if (!weightRegex.test(petProfile.weight.trim())) {
-        newErrors.weight = 'Enter weight like "12 kg" or "25 lbs" (numbers allowed).';
+        newErrors.weight = 'Enter weight like "12 kg" or "25 lbs".';
       }
     }
 
-    // Owner Email validation
     if (!petProfile.ownerEmail.trim()) {
       newErrors.ownerEmail = "Owner email is required";
     } else {
@@ -148,7 +147,6 @@ const LandingPage: React.FC = () => {
       }
     }
 
-    // Owner Number validation
     if (!petProfile.ownerNumber.trim()) {
       newErrors.ownerNumber = "Owner number is required";
     } else {
@@ -157,7 +155,6 @@ const LandingPage: React.FC = () => {
         newErrors.ownerNumber = "Enter a valid phone number (10–15 digits)";
       }
     }
-
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -169,10 +166,14 @@ const LandingPage: React.FC = () => {
     // Save pet profile to localStorage
     localStorage.setItem('petProfile', JSON.stringify(petProfile));
 
-    // Set user data and navigate
-    setUser({ name: userName, userType, petName: petProfile.name });
+    // Save user after validation passes
+    const newUser = { name: userName, userType, petName: petProfile.name };
+    setUser(newUser);
+    localStorage.setItem("user", JSON.stringify(newUser));
+
     navigateToDashboard();
   };
+
 
   const navigateToDashboard = () => {
     const type = userType || user.userType;
@@ -355,7 +356,7 @@ const LandingPage: React.FC = () => {
                         type="text"
                         value={userName}
                         onChange={(e) => handleInputChange('userName', e.target.value)}
-                        className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.userName
+                        className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-white bg-white/20 ${errors.userName
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                           : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                           }`}
@@ -432,7 +433,7 @@ const LandingPage: React.FC = () => {
                           type="text"
                           value={petName}
                           onChange={(e) => handleInputChange('petName', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.petName
+                          className={`w-full px-4 py-3 rounded-xl border transition-all text-white duration-300 bg-white/20 ${errors.petName
                             ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                             : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
@@ -484,13 +485,13 @@ const LandingPage: React.FC = () => {
                         <select
                           value={petProfile.species}
                           onChange={(e) => handleInputChange('petProfile.species', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.species
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-white bg-white/20 ${errors.species
                             ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                             : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
                           required
                         >
-                          <option value="">Select species</option>
+                          <option className='text-black' value="">Select species</option>
                           <option value="Dog">Dog</option>
                           <option value="Cat">Cat</option>
                           <option value="Bird">Bird</option>
@@ -516,7 +517,7 @@ const LandingPage: React.FC = () => {
                           type="text"
                           value={petProfile.breed}
                           onChange={(e) => handleInputChange('petProfile.breed', e.target.value.replace(/[^A-Za-z\s'\-]/g, ''))}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.breed
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-white bg-white/20 ${errors.breed
                             ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                             : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
@@ -542,7 +543,7 @@ const LandingPage: React.FC = () => {
                           type="text"
                           value={petProfile.age}
                           onChange={(e) => handleInputChange('petProfile.age', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.age
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-white bg-white/20 ${errors.age
                             ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                             : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
@@ -566,7 +567,7 @@ const LandingPage: React.FC = () => {
                           type="text"
                           value={petProfile.weight}
                           onChange={(e) => handleInputChange('petProfile.weight', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.weight
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-30 0 text-white bg-white/20 ${errors.weight
                             ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                             : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
@@ -590,7 +591,7 @@ const LandingPage: React.FC = () => {
                           type="email"
                           value={petProfile.ownerEmail}
                           onChange={(e) => handleInputChange("petProfile.ownerEmail", e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border bg-white/20 ${errors.ownerEmail
+                          className={`w-full px-4 py-3 rounded-xl border text-white bg-white/20 ${errors.ownerEmail
                             ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200"
                             : "border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
                             }`}
@@ -614,7 +615,7 @@ const LandingPage: React.FC = () => {
                           type="tel"
                           value={petProfile.ownerNumber}
                           onChange={(e) => handleInputChange("petProfile.ownerNumber", e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border bg-white/20 ${errors.ownerNumber
+                          className={`w-full px-4 py-3 rounded-xl border text-white bg-white/20 ${errors.ownerNumber
                             ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200"
                             : "border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
                             }`}

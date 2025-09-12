@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Heart, Menu, X, Clock, MapPin, Users, ChevronDown } from 'lucide-react';
-import { useUser } from '../context/UserContext';
+import React, { useRef, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Heart, Menu, X, Clock, MapPin, Users, ChevronDown } from "lucide-react";
+import { useUser } from "../context/UserContext";
 
 interface NavbarProps {
   showUserInfo?: boolean;
@@ -26,30 +26,35 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
       setActiveDropdown(null);
     }, 200);
   };
-  const { user, currentTime, location, visitorCount } = useUser();
+
+  // Only pull user from context
+  const { user } = useUser();
   const navigate = useNavigate();
 
+  // Fake defaults until you wire real values
+  const currentTime = new Date().toLocaleTimeString();
+  const location = "Karachi, PK";
+  const visitorCount = 1200;
+
   const menuItems = [
-    { name: 'Home', path: '/' },
-    { 
-      name: 'Pet Care', 
-      path: '/petcare',
+    { name: "Home", path: "/" },
+    {
+      name: "Pet Care",
+      path: "/petcare",
       dropdown: [
-        { name: 'Products', path: '/products' },
-        { name: 'Wishlist', path: '/wishlist' },
-        { name: 'Emergency', path: '/emergency' }
-      ]
+        { name: "Products", path: "/products" },
+        { name: "Wishlist", path: "/wishlist" },
+        { name: "Emergency", path: "/emergency" },
+      ],
     },
-    { 
-      name: 'Adoption', 
-      path: '/adoption',
-      dropdown: [
-        { name: 'Adoption Requests', path: '/AdoptionRequests' }
-      ]
+    {
+      name: "Adoption",
+      path: "/adoption",
+      dropdown: [{ name: "Adoption Requests", path: "/AdoptionRequests" }],
     },
-    { name: 'Contact', path: '/contact' },
-    { name: 'About', path: '/About' },
-    { name: 'Feedback', path: '/Feedback' },
+    { name: "Contact", path: "/contact" },
+    { name: "About", path: "/About" },
+    { name: "Feedback", path: "/Feedback" },
   ];
 
   return (
@@ -89,7 +94,7 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="flex items-center cursor-pointer"
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
             >
               <Heart className="h-8 w-8 text-pink-500 mr-2" />
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -98,7 +103,7 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
             </motion.div>
 
             {/* User Info */}
-            {showUserInfo && user.name && (
+            {showUserInfo && user?.name && (
               <div className="hidden md:flex gap-2 items-center">
                 <span className="text-sm text-gray-600">Welcome to FurEver,</span>
                 <span className="font-semibold text-gray-800">{user.name}</span>
@@ -132,8 +137,9 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                   <NavLink
                     to={item.path}
                     className={({ isActive }) =>
-                      `relative group font-medium transition-colors duration-300 flex items-center ${
-                        isActive ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+                      `relative group font-medium transition-colors duration-300 flex items-center ${isActive
+                        ? "text-purple-600"
+                        : "text-gray-700 hover:text-purple-600"
                       }`
                     }
                   >
@@ -143,7 +149,7 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                     )}
                     <span className="pointer-events-none absolute -bottom-1 left-0 h-0.5 bg-purple-600 transition-all duration-300 w-0 group-hover:w-full group-[aria-current=page]:w-full"></span>
                   </NavLink>
-                  
+
                   {/* Dropdown Menu */}
                   {item.dropdown && activeDropdown === item.name && (
                     <motion.div
@@ -159,15 +165,19 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                           key={dropdownItem.name}
                           to={dropdownItem.path}
                           className={({ isActive }) => {
-                            const isNoBg = dropdownItem.path === '/wishlist' || dropdownItem.path === '/AdoptionRequests';
-                            const isWishlist = dropdownItem.path === '/wishlist';
+                            const isNoBg =
+                              dropdownItem.path === "/wishlist" ||
+                              dropdownItem.path === "/AdoptionRequests";
+                            const isWishlist = dropdownItem.path === "/wishlist";
                             const activeClass = isWishlist
-                              ? 'text-gray-700'
+                              ? "text-gray-700"
                               : isNoBg
-                                ? 'text-purple-600'
-                                : 'text-purple-600 bg-purple-50';
-                            const inactiveClass = 'text-gray-700 hover:text-purple-600 hover:bg-purple-50';
-                            return `block px-4 py-2 text-sm transition-colors duration-200 ${isActive ? activeClass : inactiveClass}`;
+                                ? "text-purple-600"
+                                : "text-purple-600 bg-purple-50";
+                            const inactiveClass =
+                              "text-gray-700 hover:text-purple-600 hover:bg-purple-50";
+                            return `block px-4 py-2 text-sm transition-colors duration-200 ${isActive ? activeClass : inactiveClass
+                              }`;
                           }}
                         >
                           {dropdownItem.name}
@@ -195,12 +205,12 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-white border-t border-gray-200"
           >
             <div className="px-4 pt-2 pb-3 space-y-1">
-              {user.name && (
+              {user?.name && (
                 <div className="px-3 py-2 text-sm text-gray-600 border-b border-gray-100">
                   Welcome, <span className="font-semibold">{user.name}</span>
                   {user.petName && <span> & {user.petName}</span>}
@@ -211,10 +221,9 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                   <NavLink
                     to={item.path}
                     className={({ isActive }) =>
-                      `relative group block px-3 py-2 rounded-md transition-colors duration-300 ${
-                        isActive
-                          ? 'text-purple-700 bg-purple-100'
-                          : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
+                      `relative group block px-3 py-2 rounded-md transition-colors duration-300 ${isActive
+                        ? "text-purple-700 bg-purple-100"
+                        : "text-gray-700 hover:text-purple-600 hover:bg-purple-50"
                       }`
                     }
                     onClick={() => setIsOpen(false)}
@@ -222,7 +231,7 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                     {item.name}
                     <span className="pointer-events-none absolute bottom-0 left-3 right-3 mx-auto h-0.5 bg-purple-600 transition-all duration-300 w-0 group-hover:w-[calc(100%-24px)] group-[aria-current=page]:w-[calc(100%-24px)]"></span>
                   </NavLink>
-                  
+
                   {/* Mobile Dropdown Items */}
                   {item.dropdown && (
                     <div className="ml-4 space-y-1">
@@ -231,15 +240,19 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
                           key={dropdownItem.name}
                           to={dropdownItem.path}
                           className={({ isActive }) => {
-                            const isNoBg = dropdownItem.path === '/wishlist' || dropdownItem.path === '/AdoptionRequests';
-                            const isWishlist = dropdownItem.path === '/wishlist';
+                            const isNoBg =
+                              dropdownItem.path === "/wishlist" ||
+                              dropdownItem.path === "/AdoptionRequests";
+                            const isWishlist = dropdownItem.path === "/wishlist";
                             const activeClass = isWishlist
-                              ? 'text-gray-600'
+                              ? "text-gray-600"
                               : isNoBg
-                                ? 'text-purple-600'
-                                : 'text-purple-600 bg-purple-50';
-                            const inactiveClass = 'text-gray-600 hover:text-purple-600 hover:bg-purple-50';
-                            return `block px-3 py-2 text-sm rounded-md transition-colors duration-300 ${isActive ? activeClass : inactiveClass}`;
+                                ? "text-purple-600"
+                                : "text-purple-600 bg-purple-50";
+                            const inactiveClass =
+                              "text-gray-600 hover:text-purple-600 hover:bg-purple-50";
+                            return `block px-3 py-2 text-sm rounded-md transition-colors duration-300 ${isActive ? activeClass : inactiveClass
+                              }`;
                           }}
                           onClick={() => setIsOpen(false)}
                         >

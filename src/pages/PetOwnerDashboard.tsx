@@ -44,21 +44,56 @@ const PetOwnerDashboard: React.FC = () => {
   const [showTicket, setShowTicket] = useState(false);
 
   const handleDownloadTicket = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF("p", "mm", "a4");
 
-    doc.setFontSize(18);
-    doc.text("FurEver Care - Appointment Ticket", 20, 20);
+    // Colors
+    const purple = [128, 90, 213]; // Tailwind purple-600
+    const pink = [236, 72, 153]; // Tailwind pink-500
 
+    // Header background (gradient effect by rectangle overlay)
+    doc.setFillColor(purple[0], purple[1], purple[2]);
+    doc.rect(0, 0, 210, 40, "F"); // full-width header
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.text("FurEver Care", 105, 15, { align: "center" });
+
+    doc.setFontSize(14);
+    doc.text("Appointment Ticket", 105, 28, { align: "center" });
+
+    // Optional: Logo if available in /public/logo.png
+    // doc.addImage("/logo.png", "PNG", 15, 8, 20, 20);
+
+    // Reset text color
+    doc.setTextColor(0, 0, 0);
+
+    // Ticket box
+    doc.setDrawColor(pink[0], pink[1], pink[2]);
+    doc.setLineWidth(1.2);
+    doc.roundedRect(20, 50, 170, 100, 5, 5);
+
+    // Ticket details
     doc.setFontSize(12);
-    doc.text(`Ticket ID: ${displayProfile.appointmentId}`, 20, 40);
-    doc.text(`Pet Name: ${displayProfile.name}`, 20, 50);
-    doc.text(`Owner Email: ${displayProfile.ownerEmail}`, 20, 60);
-    doc.text(`Owner Number: ${displayProfile.ownerNumber}`, 20, 70);
-    doc.text(`Date: ${displayProfile.appointmentDate}`, 20, 80);
-    doc.text(`Time: ${displayProfile.appointmentTime}`, 20, 90);
+    const leftX = 30;
+    let y = 70;
+    const gap = 12;
 
+    doc.text(`Ticket ID: ${displayProfile.appointmentId}`, leftX, y); y += gap;
+    doc.text(`Pet Name: ${displayProfile.name}`, leftX, y); y += gap;
+    doc.text(`Owner Email: ${displayProfile.ownerEmail}`, leftX, y); y += gap;
+    doc.text(`Owner Number: ${displayProfile.ownerNumber}`, leftX, y); y += gap;
+    doc.text(`Date: ${displayProfile.appointmentDate}`, leftX, y); y += gap;
+    doc.text(`Time: ${displayProfile.appointmentTime}`, leftX, y); y += gap;
+
+    // Footer note
+    doc.setFontSize(10);
+    doc.setTextColor(120, 120, 120);
+    doc.text("Please arrive 15 minutes early. Bring this ticket for verification.", 105, 165, { align: "center" });
+
+    // Save as file
     doc.save(`Appointment_${displayProfile.appointmentId}.pdf`);
   };
+
 
 
   useEffect(() => {
@@ -249,14 +284,13 @@ const PetOwnerDashboard: React.FC = () => {
               </h2>
 
               <div className="flex items-center space-x-4">
-                {/* Appointment Badge */}
+                {/* Appointment Ticket Button */}
                 <button
                   onClick={() => setShowTicket(true)}
                   className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full text-sm font-semibold shadow hover:shadow-lg transition"
                 >
                   View Appointment Ticket
                 </button>
-
 
                 {/* Edit Button */}
                 {!isEditing && (
@@ -277,35 +311,129 @@ const PetOwnerDashboard: React.FC = () => {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  localStorage.setItem("petProfile", JSON.stringify(editProfile));
-                  setPetProfile(editProfile);
+                  const mergedProfile = {
+                    ...petProfile, // keep hidden/system values
+                    ...editProfile, // overwrite edited values
+                  };
+                  localStorage.setItem("petProfile", JSON.stringify(mergedProfile));
+                  setPetProfile(mergedProfile);
                   setIsEditing(false);
                 }}
                 className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
               >
-                {Object.entries(editProfile).map(([key, value]) => (
-                  <div key={key}>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {key.charAt(0).toUpperCase() + key.slice(1)}
-                    </label>
-                    <input
-                      type="text"
-                      value={value}
-                      onChange={(e) =>
-                        setEditProfile((prev) =>
-                          prev ? { ...prev, [key]: e.target.value } : null
-                        )
-                      }
-                      className="w-full px-3 py-2 border rounded-lg"
-                    />
-                  </div>
-                ))}
+                {/* Pet Name */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Pet Name</label>
+                  <input
+                    type="text"
+                    value={editProfile.name}
+                    onChange={(e) => setEditProfile({ ...editProfile, name: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
 
+                {/* Species */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Species</label>
+                  <input
+                    type="text"
+                    value={editProfile.species}
+                    onChange={(e) => setEditProfile({ ...editProfile, species: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+
+                {/* Breed */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Breed</label>
+                  <input
+                    type="text"
+                    value={editProfile.breed}
+                    onChange={(e) => setEditProfile({ ...editProfile, breed: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+
+                {/* Age */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                  <input
+                    type="text"
+                    value={editProfile.age}
+                    onChange={(e) => setEditProfile({ ...editProfile, age: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+
+                {/* Weight */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Weight</label>
+                  <input
+                    type="text"
+                    value={editProfile.weight}
+                    onChange={(e) => setEditProfile({ ...editProfile, weight: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+
+                {/* Owner Email */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Owner Email</label>
+                  <input
+                    type="email"
+                    value={editProfile.ownerEmail}
+                    onChange={(e) => setEditProfile({ ...editProfile, ownerEmail: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+
+                {/* Owner Number */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Owner Number</label>
+                  <input
+                    type="tel"
+                    value={editProfile.ownerNumber}
+                    onChange={(e) => setEditProfile({ ...editProfile, ownerNumber: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+
+                {/* Microchip ID (read-only) */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Microchip ID</label>
+                  <input
+                    type="text"
+                    value={editProfile.microchipId}
+                    readOnly
+                    className="w-full px-3 py-2 border rounded-lg bg-gray-100 text-gray-600"
+                  />
+                </div>
+
+                {/* Appointment Date */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Appointment Date</label>
+                  <input
+                    type="date"
+                    value={editProfile.appointmentDate}
+                    readOnly
+                    className="w-full px-3 py-2 border rounded-lg bg-gray-100 text-gray-600"
+                  />
+                </div>
+
+                {/* Appointment Time */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Appointment Time</label>
+                  <input
+                    type="time"
+                    value={editProfile.appointmentTime}
+                    readOnly
+                    className="w-full px-3 py-2 border rounded-lg bg-gray-100 text-gray-600"
+                  />
+                </div>
+
+                {/* Save / Cancel */}
                 <div className="col-span-full flex space-x-4 mt-4">
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-green-500 text-white rounded-lg"
-                  >
+                  <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded-lg">
                     Save
                   </button>
                   <button
@@ -324,10 +452,11 @@ const PetOwnerDashboard: React.FC = () => {
                   { label: "Breed", value: displayProfile.breed, icon: Info },
                   { label: "Age", value: displayProfile.age, icon: Calendar },
                   { label: "Weight", value: displayProfile.weight, icon: Award },
-                  { label: "Last Vet Visit", value: displayProfile.lastVetVisit, icon: Stethoscope },
-                  { label: "Next Vaccination", value: displayProfile.nextVaccination, icon: Calendar },
                   { label: "Owner Email", value: displayProfile.ownerEmail, icon: Info },
                   { label: "Owner Number", value: displayProfile.ownerNumber, icon: Phone },
+                  { label: "Microchip ID", value: displayProfile.microchipId, icon: Info },
+                  { label: "Appointment Date", value: displayProfile.appointmentDate, icon: Calendar },
+                  { label: "Appointment Time", value: displayProfile.appointmentTime, icon: Calendar },
                 ].map((item, index) => (
                   <motion.div
                     key={index}
@@ -346,6 +475,7 @@ const PetOwnerDashboard: React.FC = () => {
               </div>
             )}
           </motion.div>
+
 
           {/* Care Sections */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -433,7 +563,13 @@ const PetOwnerDashboard: React.FC = () => {
             </div>
 
             {/* Action */}
-            <div className="mt-6 text-center">
+            <div className="mt-6 flex justify-center space-x-4">
+              <button
+                onClick={handleDownloadTicket}
+                className="px-6 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition"
+              >
+                Download Ticket
+              </button>
               <button
                 onClick={() => setShowTicket(false)}
                 className="px-6 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition"

@@ -1,85 +1,37 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface User {
   name: string;
-  userType: 'pet-owner' | 'veterinarian' | 'animal-shelter' | '';
+  userType: string;
   petName?: string;
 }
 
-interface UserContextType {
+interface UserContextProps {
   user: User;
-  setUser: (user: User) => void;
-  currentTime: string;
-  location: string;
-  visitorCount: number;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<UserContextProps>({
+  user: { name: "", userType: "", petName: "" },
+  setUser: () => { },
+});
 
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
-};
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User>({ name: "", userType: "", petName: "" });
 
-interface UserProviderProps {
-  children: ReactNode;
-}
-
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User>({
-    name: '',
-    userType: '',
-    petName: ''
-  });
-  const [currentTime, setCurrentTime] = useState('');
-  const [location, setLocation] = useState('Loading location...');
-  const [visitorCount, setVisitorCount] = useState(1247);
-
+  // Load from localStorage when app starts
   useEffect(() => {
-    // Update time every second
-    const timeInterval = setInterval(() => {
-      const now = new Date();
-      setCurrentTime(now.toLocaleString());
-    }, 1000);
-
-    // Get user location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          fetch(`https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude}+${position.coords.longitude}&key=demo`)
-            .then(response => response.json())
-            .then(data => {
-              if (data.results && data.results[0]) {
-                setLocation(data.results[0].formatted);
-              } else {
-                setLocation('Location unavailable');
-              }
-            })
-            .catch(() => setLocation('Location unavailable'));
-        },
-        () => setLocation('Location access denied')
-      );
-    } else {
-      setLocation('Geolocation not supported');
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
-
-    // Simulate visitor count increment
-    const visitorInterval = setInterval(() => {
-      setVisitorCount(prev => prev + Math.floor(Math.random() * 3));
-    }, 30000);
-
-    return () => {
-      clearInterval(timeInterval);
-      clearInterval(visitorInterval);
-    };
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, currentTime, location, visitorCount }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );
 };
+
+export const useUser = () => useContext(UserContext);
