@@ -34,7 +34,7 @@ const About: React.FC = () => {
             <section className="py-20 px-6 md:px-12 lg:px-24">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <motion.img
-                        src="/images/about-pets.jpg"
+                        src="/Images/Happy_pet.jpeg"
                         alt="Happy pets"
                         className="rounded-2xl shadow-2xl w-full object-cover"
                         initial={{ opacity: 0, scale: 0.9 }}

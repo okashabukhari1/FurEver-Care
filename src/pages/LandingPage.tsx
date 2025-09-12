@@ -886,21 +886,21 @@ const LandingPage: React.FC = () => {
                 role: "Pet Owner",
                 feedback:
                   "FurEver Care has been a lifesaver! I can easily track my dog's health and connect with vets anytime.",
-                img: "https://randomuser.me/api/portraits/women/44.jpg"
+                img: "/Images/Sarah.jpg"
               },
               {
                 name: "Dr. Michael Lee",
                 role: "Veterinarian",
                 feedback:
                   "This platform makes it so easy to provide care remotely. I love being able to help more pet parents.",
-                img: "https://randomuser.me/api/portraits/men/32.jpg"
+                img: "/Images/Dr._Michael_Lee.jpg"
               },
               {
                 name: "Emma Davis",
                 role: "Animal Shelter Manager",
                 feedback:
                   "Managing pets and adoptions is much simpler now. FurEver Care has made our work smoother and faster.",
-                img: "https://randomuser.me/api/portraits/women/68.jpg"
+                img: "/Images/Emma_Davis.jpg"
               }
             ].map((person, idx) => (
               <motion.div

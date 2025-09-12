@@ -48,22 +48,22 @@ const TrainingTips: React.FC = () => {
         {
             title: "Teach Your Dog to Sit",
             description: "Step-by-step guide to teaching the 'Sit' command.",
-            url: "https://www.youtube.com/embed/VE1v4tw1LJ0"
+            url: "https://www.youtube.com/embed/-wLejBHUMsQ?si=tH3OMJK4KtbLj4-s"
         },
         {
             title: "Stay Command Training",
             description: "Help your dog learn patience with the 'Stay' command.",
-            url: "https://www.youtube.com/embed/7z3Q-huQ9p0"
+            url: "https://www.youtube.com/embed/GAziMECDxD0?si=HtaPjSvco5FM5Yg9"
         },
         {
             title: "Recall / Come Command",
             description: "Train your pet to come back when called every time.",
-            url: "https://www.youtube.com/embed/IdI1dVt2Z9Y"
+            url: "https://www.youtube.com/embed/--PXr3edQDo?si=geLnegPInnIZ6DL5"
         },
         {
             title: "Loose Leash Walking",
             description: "Learn how to stop pulling and enjoy walks with your dog.",
-            url: "https://www.youtube.com/embed/_J4iPQ1LHRw"
+            url: "https://www.youtube.com/embed/tSvfVs4LKyg?si=hU9AniQp_wUyadK8"
         }
     ];
 

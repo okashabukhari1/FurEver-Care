@@ -137,7 +137,7 @@ const Footer: React.FC = () => {
           <div className="flex space-x-6 mt-4 sm:mt-0">
             <a href="/PrivacyPolicy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Privacy Policy</a>
             <a href="/TermsOfService" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Terms of Service</a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Cookie Policy</a>
+            <a href="/CookiePolicy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Cookie Policy</a>
           </div>
         </motion.div>
       </div>

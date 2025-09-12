@@ -52,8 +52,8 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
       path: "/adoption",
       dropdown: [{ name: "Adoption Requests", path: "/AdoptionRequests" }],
     },
-    { name: "Contact", path: "/contact" },
     { name: "About", path: "/About" },
+    { name: "Contact", path: "/contact" },
     { name: "Feedback", path: "/Feedback" },
   ];
 
@@ -87,19 +87,20 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
       )}
 
       {/* Main Navbar */}
-      <nav className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-40">
+      <nav className="bg-white/85 backdrop-blur-md shadow-lg sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-18">
             {/* Logo */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="flex items-center cursor-pointer"
               onClick={() => navigate("/")}
             >
-              <Heart className="h-8 w-8 text-pink-500 mr-2" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                FurEver Care
-              </span>
+              <img
+                src="/Images/FurEver-Care-logo.svg"   // ✅ put your logo file in public/logo.png
+                alt="FurEver Care Logo"
+                className="h-[90px] w-auto mt-4"
+              />
             </motion.div>
 
             {/* User Info */}

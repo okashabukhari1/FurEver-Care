@@ -22,6 +22,7 @@ import HealthTips from './pages/HealthTips';
 import TrainingTips from './pages/TrainingTips';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import CookiePolicy from './pages/CookiePolicy';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -57,6 +58,7 @@ function App() {
               <Route path="/TrainingTips" element={<TrainingTips />} />
               <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
               <Route path="/TermsOfService" element={<TermsOfService />} />
+              <Route path="/CookiePolicy" element={<CookiePolicy />} />
               <Route path="/petcare" element={<PetCare />} />
               <Route path="/adoption" element={<Adoption />} />
               <Route path="/AdoptionRequests" element={<AdoptionRequests />} />
