@@ -9,6 +9,8 @@ import ContactPage from './pages/ContactPage';
 import EmergencyPage from './pages/EmergencyPage';
 import ProductShowcase from './pages/ProductShowcase';
 import { UserProvider } from './context/UserContext';
+import  About  from './pages/About';
+import  Feedback  from './pages/Feedback';
 import LoadingSpinner from './components/LoadingSpinner';
 import PetCare from "./pages/PetCare";
 import Adoption from "./pages/Adoption";
@@ -41,6 +43,8 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<LandingPage />} />
+              <Route path="/About" element={<About />} />
+              <Route path="/Feedback" element={<Feedback />} />
               <Route path="/petcare" element={<PetCare />} />
               <Route path="/adoption" element={<Adoption />} />
               <Route path="/AdoptionRequests" element={<AdoptionRequests />} />

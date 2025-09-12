@@ -13,7 +13,10 @@ interface PetProfile {
   age: string;
   weight: string;
   microchipId: string;
+  ownerNumber: string;
+  ownerEmail: string;
 }
+
 
 const LandingPage: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -25,7 +28,9 @@ const LandingPage: React.FC = () => {
     breed: '',
     age: '',
     weight: '',
-    microchipId: ''
+    microchipId: '',
+    ownerNumber: '',
+    ownerEmail: ''
   });
   const [formStep, setFormStep] = useState<'user' | 'pet-profile'>('user');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -133,6 +138,27 @@ const LandingPage: React.FC = () => {
       }
     }
 
+    // Owner Email validation
+    if (!petProfile.ownerEmail.trim()) {
+      newErrors.ownerEmail = "Owner email is required";
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(petProfile.ownerEmail.trim())) {
+        newErrors.ownerEmail = "Enter a valid email address";
+      }
+    }
+
+    // Owner Number validation
+    if (!petProfile.ownerNumber.trim()) {
+      newErrors.ownerNumber = "Owner number is required";
+    } else {
+      const numberRegex = /^[0-9]{10,15}$/;
+      if (!numberRegex.test(petProfile.ownerNumber.trim())) {
+        newErrors.ownerNumber = "Enter a valid phone number (10–15 digits)";
+      }
+    }
+
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -235,7 +261,7 @@ const LandingPage: React.FC = () => {
 
         {/* Overlay for readability */}
         <div className="absolute inset-0 bg-black/60"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
@@ -330,8 +356,8 @@ const LandingPage: React.FC = () => {
                         value={userName}
                         onChange={(e) => handleInputChange('userName', e.target.value)}
                         className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.userName
-                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                            : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                          : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                           }`}
                         placeholder="Enter your first name"
                         required
@@ -366,8 +392,8 @@ const LandingPage: React.FC = () => {
                               className="sr-only"
                             />
                             <div className={`p-4 rounded-xl border-2 transition-all duration-300 ${userType === option.id
-                                ? `${option.bgColor} border-2 ${option.textColor} shadow-lg scale-105`
-                                : 'bg-white/40 border-gray-200 hover:border-gray-300'
+                              ? `${option.bgColor} border-2 ${option.textColor} shadow-lg scale-105`
+                              : 'bg-white/40 border-gray-200 hover:border-gray-300'
                               }`}>
                               <div className="flex items-center space-x-3">
                                 <div className={`p-2 rounded-lg bg-gradient-to-r ${option.color}`}>
@@ -378,8 +404,8 @@ const LandingPage: React.FC = () => {
                                   <div className="text-sm text-gray-600">{option.description}</div>
                                 </div>
                                 <div className={`w-6 h-6 rounded-full border-2 ${userType === option.id
-                                    ? `${option.textColor} border-current`
-                                    : 'border-gray-300'
+                                  ? `${option.textColor} border-current`
+                                  : 'border-gray-300'
                                   } flex items-center justify-center`}>
                                   {userType === option.id && (
                                     <div className={`w-3 h-3 rounded-full bg-current`}></div>
@@ -399,16 +425,16 @@ const LandingPage: React.FC = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         transition={{ duration: 0.3 }}
                       >
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-white mb-2">
                           Pet's Name
                         </label>
                         <input
                           type="text"
                           value={petName}
                           onChange={(e) => handleInputChange('petName', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/50 ${errors.petName
-                              ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                              : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.petName
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                            : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
                           placeholder="Enter your pet's name"
                           required
@@ -442,7 +468,7 @@ const LandingPage: React.FC = () => {
                   >
                     <div className="text-center mb-6">
                       <h3 className="text-2xl font-bold text-gray-800 mb-2">Pet Profile</h3>
-                      <p className="text-gray-600">Tell us about {petProfile.name}</p>
+                      <p className="text-white">Tell us about {petProfile.name}</p>
                       <div className="mt-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium inline-flex items-center">
                         <CheckCircle className="w-4 h-4 mr-1" />
                         Microchip ID: {petProfile.microchipId}
@@ -452,15 +478,15 @@ const LandingPage: React.FC = () => {
                     <form onSubmit={handlePetProfileSubmit} className="space-y-6">
                       {/* Species */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-white mb-2">
                           Species
                         </label>
                         <select
                           value={petProfile.species}
                           onChange={(e) => handleInputChange('petProfile.species', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/50 ${errors.species
-                              ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                              : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.species
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                            : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
                           required
                         >
@@ -483,16 +509,16 @@ const LandingPage: React.FC = () => {
 
                       {/* Breed */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-white mb-2">
                           Breed
                         </label>
                         <input
                           type="text"
                           value={petProfile.breed}
                           onChange={(e) => handleInputChange('petProfile.breed', e.target.value.replace(/[^A-Za-z\s'\-]/g, ''))}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/50 ${errors.breed
-                              ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                              : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.breed
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                            : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
                           placeholder="e.g., Golden Retriever, Persian, etc."
                           pattern="^[A-Za-z\s'-]{2,60}$"
@@ -509,16 +535,16 @@ const LandingPage: React.FC = () => {
 
                       {/* Age */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-white mb-2">
                           Age
                         </label>
                         <input
                           type="text"
                           value={petProfile.age}
                           onChange={(e) => handleInputChange('petProfile.age', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/50 ${errors.age
-                              ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                              : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.age
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                            : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
                           placeholder="e.g., 2 years, 6 months, etc."
                           required
@@ -533,16 +559,16 @@ const LandingPage: React.FC = () => {
 
                       {/* Weight */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-white mb-2">
                           Weight
                         </label>
                         <input
                           type="text"
                           value={petProfile.weight}
                           onChange={(e) => handleInputChange('petProfile.weight', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/50 ${errors.weight
-                              ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                              : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
+                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 bg-white/20 ${errors.weight
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                            : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
                           placeholder="e.g., 25 lbs, 12 kg, etc."
                           required
@@ -554,6 +580,55 @@ const LandingPage: React.FC = () => {
                           </div>
                         )}
                       </div>
+
+                      {/* Owner Email */}
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">
+                          Owner Email
+                        </label>
+                        <input
+                          type="email"
+                          value={petProfile.ownerEmail}
+                          onChange={(e) => handleInputChange("petProfile.ownerEmail", e.target.value)}
+                          className={`w-full px-4 py-3 rounded-xl border bg-white/20 ${errors.ownerEmail
+                            ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200"
+                            : "border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                            }`}
+                          placeholder="e.g., owner@example.com"
+                          required
+                        />
+                        {errors.ownerEmail && (
+                          <div className="flex items-center mt-2 text-red-600 text-sm">
+                            <AlertCircle className="w-4 h-4 mr-1" />
+                            {errors.ownerEmail}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Owner Number */}
+                      <div>
+                        <label className="block text-sm font-medium text-white mb-2">
+                          Owner Number
+                        </label>
+                        <input
+                          type="tel"
+                          value={petProfile.ownerNumber}
+                          onChange={(e) => handleInputChange("petProfile.ownerNumber", e.target.value)}
+                          className={`w-full px-4 py-3 rounded-xl border bg-white/20 ${errors.ownerNumber
+                            ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200"
+                            : "border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                            }`}
+                          placeholder="e.g., 03001234567"
+                          required
+                        />
+                        {errors.ownerNumber && (
+                          <div className="flex items-center mt-2 text-red-600 text-sm">
+                            <AlertCircle className="w-4 h-4 mr-1" />
+                            {errors.ownerNumber}
+                          </div>
+                        )}
+                      </div>
+
 
                       {/* Submit Button */}
                       <motion.button
@@ -570,7 +645,7 @@ const LandingPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setFormStep('user')}
-                        className="w-full text-gray-600 hover:text-purple-600 font-medium py-2 transition-colors duration-300"
+                        className="w-full text-white hover:text-purple-600 font-medium py-2 transition-colors duration-300"
                       >
                         ← Back to User Info
                       </button>

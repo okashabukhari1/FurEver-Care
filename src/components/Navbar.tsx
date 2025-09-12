@@ -36,10 +36,10 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
       path: '/petcare',
       dropdown: [
         { name: 'Products', path: '/products' },
-        { name: 'Wishlist', path: '/wishlist' }
+        { name: 'Wishlist', path: '/wishlist' },
+        { name: 'Emergency', path: '/emergency' }
       ]
     },
-    { name: 'Emergency', path: '/emergency' },
     { 
       name: 'Adoption', 
       path: '/adoption',
@@ -48,8 +48,8 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
       ]
     },
     { name: 'Contact', path: '/contact' },
-    { name: 'About', path: '/about' },
-    { name: 'Feedback', path: '/feedback' },
+    { name: 'About', path: '/About' },
+    { name: 'Feedback', path: '/Feedback' },
   ];
 
   return (
@@ -99,7 +99,7 @@ const Navbar: React.FC<NavbarProps> = ({ showUserInfo = true }) => {
 
             {/* User Info */}
             {showUserInfo && user.name && (
-              <div className="hidden md:flex items-center">
+              <div className="hidden md:flex gap-2 items-center">
                 <span className="text-sm text-gray-600">Welcome to FurEver,</span>
                 <span className="font-semibold text-gray-800">{user.name}</span>
                 {user.petName && (
