@@ -21,10 +21,11 @@ const ContactPage: React.FC = () => {
     message: "",
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name } = e.target;
     let { value } = e.target;
-    const [submitted, setSubmitted] = useState(false);
 
     // Restrict name field to letters, spaces, apostrophes, and hyphens only
     if (name === "name") {
@@ -86,13 +87,11 @@ const ContactPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      setSubmitted(true); // show success state
+      setSubmitted(true); // Show success message instead of alert
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
       setErrors({ name: "", email: "", phone: "", subject: "", message: "" });
     }
   };
-
-
 
   const contactInfo = [
     {
@@ -132,11 +131,13 @@ const ContactPage: React.FC = () => {
             <div className="flex items-center justify-center mb-4">
               <MessageSquare className="w-12 h-12 text-purple-500 mr-4" />
               <h1 className="text-4xl lg:text-5xl font-bold text-gray-800">
-                Contact <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Us</span>
+                Contact{" "}
+                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Us</span>
               </h1>
             </div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're here to help you and your furry friends. Get in touch with our caring team for any questions or support.
+              We're here to help you and your furry friends. Get in touch with our caring team for any questions or
+              support.
             </p>
           </motion.div>
 
@@ -151,7 +152,9 @@ const ContactPage: React.FC = () => {
                 whileHover={{ y: -5, scale: 1.02 }}
                 className="bg-white/80 rounded-2xl p-6 shadow-lg border hover:shadow-2xl transition-all"
               >
-                <div className={`w-16 h-16 bg-gradient-to-r ${info.color} rounded-2xl flex items-center justify-center mb-4 mx-auto`}>
+                <div
+                  className={`w-16 h-16 bg-gradient-to-r ${info.color} rounded-2xl flex items-center justify-center mb-4 mx-auto`}
+                >
                   <info.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-3 text-center">{info.title}</h3>
@@ -164,88 +167,103 @@ const ContactPage: React.FC = () => {
             ))}
           </div>
 
-          {/* Form */}
+          {/* Contact Form */}
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
             <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} className="bg-white/80 rounded-3xl p-8 shadow-xl border">
               <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center">
                 <Send className="w-8 h-8 text-purple-500 mr-3" /> Send us a Message
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name + Email */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
-                      placeholder="Enter your name"
-                    />
-                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+              {submitted ? (
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center p-10">
+                  <div className="flex justify-center mb-4">
+                    <Send className="w-16 h-16 text-green-500" />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
-                      placeholder="you@example.com"
-                    />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  <h2 className="text-3xl font-bold text-green-600 mb-3">Thank You!</h2>
+                  <p className="text-gray-700">Your message has been sent successfully. We’ll get back to you soon.</p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Name + Email */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Full Name *</label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                        placeholder="Enter your name"
+                      />
+                      {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Email *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                        placeholder="you@example.com"
+                      />
+                      {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                    </div>
                   </div>
-                </div>
 
-                {/* Phone + Subject */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Phone</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
-                      placeholder="Enter your phone number"
-                    />
-                    {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                  {/* Phone + Subject */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Phone</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                        placeholder="Enter your phone number"
+                      />
+                      {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Subject *</label>
+                      <input
+                        type="text"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                        placeholder="What's this about?"
+                      />
+                      {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
+                    </div>
                   </div>
+
+                  {/* Message */}
                   <div>
-                    <label className="block text-sm font-medium mb-1">Subject *</label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
+                    <label className="block text-sm font-medium mb-1">Message *</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
                       onChange={handleInputChange}
+                      rows={6}
                       className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
-                      placeholder="What's this about?"
+                      placeholder="Tell us how we can help you..."
                     />
-                    {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
+                    {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                   </div>
-                </div>
 
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-medium mb-1">Message *</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={6}
-                    className="w-full px-4 py-3 rounded-xl border focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
-                    placeholder="Tell us how we can help you..."
-                  />
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-                </div>
-
-                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl shadow-lg">
-                  <Send className="w-5 h-5 inline mr-2" /> Send Message
-                </motion.button>
-              </form>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl shadow-lg"
+                  >
+                    <Send className="w-5 h-5 inline mr-2" /> Send Message
+                  </motion.button>
+                </form>
+              )}
             </motion.div>
 
             {/* Map */}
@@ -293,6 +311,7 @@ const ContactPage: React.FC = () => {
           </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );

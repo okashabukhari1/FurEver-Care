@@ -15,6 +15,7 @@ interface Product {
   price: number;
   rating: number;
   inStock: boolean;
+  link?: string;
 }
 
 const ProductShowcase: React.FC = () => {
@@ -30,6 +31,7 @@ const ProductShowcase: React.FC = () => {
   useEffect(() => {
     setProducts(productData.products);
     setFilteredProducts(productData.products);
+
     // Load favorites from localStorage
     try {
       const raw = localStorage.getItem('wishlist');
@@ -71,7 +73,6 @@ const ProductShowcase: React.FC = () => {
 
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
 
-  // ✅ Only one toggle method (floating heart button)
   const toggleFavorite = (productId: number) => {
     setFavorites(prev => {
       const numericId = Number(productId);
@@ -80,8 +81,6 @@ const ProductShowcase: React.FC = () => {
         : Array.from(new Set([...prev, numericId]));
 
       localStorage.setItem('wishlist', JSON.stringify(next));
-
-      // 👇 trigger storage event so Wishlist updates instantly
       window.dispatchEvent(new StorageEvent('storage', { key: 'wishlist' }));
 
       return next;
@@ -190,7 +189,7 @@ const ProductShowcase: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
             className={viewMode === 'grid'
-              ? "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              ? "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr"
               : "space-y-4"
             }
           >
@@ -201,11 +200,12 @@ const ProductShowcase: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
                 whileHover={{ y: -5 }}
-                className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden ${viewMode === 'list' ? 'flex' : ''
-                  }`}
+                className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden
+                  ${viewMode === 'list' ? 'flex flex-row items-stretch h-64' : 'flex flex-col'}`
+                }
               >
                 {/* Product Image */}
-                <div className={`relative ${viewMode === 'list' ? 'w-48 h-48' : 'h-48'} overflow-hidden`}>
+                <div className={`relative ${viewMode === 'list' ? 'w-48 h-full' : 'h-48'} overflow-hidden`}>
                   <img
                     src={product.image}
                     alt={product.name}
@@ -216,8 +216,8 @@ const ProductShowcase: React.FC = () => {
                     onClick={(e) => { e.stopPropagation(); toggleFavorite(product.id); }}
                     aria-pressed={favorites.includes(product.id)}
                     className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${favorites.includes(product.id)
-                        ? 'bg-pink-500 text-white'
-                        : 'bg-white/80 text-gray-600 hover:bg-pink-500 hover:text-white'
+                      ? 'bg-pink-500 text-white'
+                      : 'bg-white/80 text-gray-600 hover:bg-pink-500 hover:text-white'
                       }`}
                   >
                     <Heart className="w-4 h-4" fill={favorites.includes(product.id) ? 'currentColor' : 'none'} />
@@ -230,30 +230,32 @@ const ProductShowcase: React.FC = () => {
                 </div>
 
                 {/* Product Info */}
-                <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full font-medium">
-                      {product.category}
-                    </span>
-                    <div className="flex items-center">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full font-medium">
+                        {product.category}
+                      </span>
+                      <div className="flex items-center">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
+                      </div>
                     </div>
+
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                      {product.name}
+                    </h3>
+
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {product.description}
+                    </p>
                   </div>
 
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                    {product.name}
-                  </h3>
-
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-
-                  <div className="flex items-center justify-center">
-                    <div className="flex items-stretch gap-2 w-56">
-                      <span className="text-2xl font-bold text-purple-600 text-center">
-                        ${product.price}
-                      </span>
+                  <div className="flex items-center justify-start mt-auto">
+                    <span className="text-2xl font-bold text-purple-600 mr-4">
+                      ${product.price}
+                    </span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer">
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -263,7 +265,7 @@ const ProductShowcase: React.FC = () => {
                         <ShoppingCart className="w-4 h-4" />
                         <span>Buy Now</span>
                       </motion.button>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </motion.div>

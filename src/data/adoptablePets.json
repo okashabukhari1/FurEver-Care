@@ -9,7 +9,11 @@
       "gender": "Female",
       "image": "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg",
       "description": "Luna is a gentle, loving dog who gets along great with children and other pets. She's house-trained and knows basic commands.",
-      "personality": ["Friendly", "Gentle", "Playful"],
+      "personality": [
+        "Friendly",
+        "Gentle",
+        "Playful"
+      ],
       "medicalInfo": "Up to date on vaccinations, spayed",
       "location": "Pet City Animal Shelter"
     },
@@ -22,7 +26,11 @@
       "gender": "Male",
       "image": "https://images.pexels.com/photos/2194261/pexels-photo-2194261.jpeg",
       "description": "Shadow is a curious and affectionate cat who loves to explore. He's great with other cats and enjoys interactive play.",
-      "personality": ["Curious", "Affectionate", "Independent"],
+      "personality": [
+        "Curious",
+        "Affectionate",
+        "Independent"
+      ],
       "medicalInfo": "Vaccinated, neutered, microchipped",
       "location": "Pet City Animal Shelter"
     },
@@ -35,7 +43,11 @@
       "gender": "Male",
       "image": "https://images.pexels.com/photos/1458925/pexels-photo-1458925.jpeg",
       "description": "Buddy is a calm, well-mannered dog perfect for families. He loves walks and is excellent with children of all ages.",
-      "personality": ["Calm", "Loyal", "Patient"],
+      "personality": [
+        "Calm",
+        "Loyal",
+        "Patient"
+      ],
       "medicalInfo": "Fully vaccinated, neutered, heartworm negative",
       "location": "Pet City Animal Shelter"
     },
@@ -48,7 +60,11 @@
       "gender": "Female",
       "image": "https://images.pexels.com/photos/1183434/pexels-photo-1183434.jpeg",
       "description": "Whiskers is a beautiful, fluffy cat with a sweet disposition. She enjoys quiet environments and loves being petted.",
-      "personality": ["Sweet", "Quiet", "Loving"],
+      "personality": [
+        "Sweet",
+        "Quiet",
+        "Loving"
+      ],
       "medicalInfo": "Spayed, vaccinated, FIV/FeLV negative",
       "location": "Pet City Animal Shelter"
     },
@@ -61,7 +77,11 @@
       "gender": "Male",
       "image": "https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg",
       "description": "Max is an intelligent, protective dog who bonds strongly with his family. He needs an active home with experienced dog owners.",
-      "personality": ["Intelligent", "Protective", "Active"],
+      "personality": [
+        "Intelligent",
+        "Protective",
+        "Active"
+      ],
       "medicalInfo": "Vaccinated, neutered, microchipped",
       "location": "Pet City Animal Shelter"
     },
@@ -74,7 +94,11 @@
       "gender": "Female",
       "image": "https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg",
       "description": "Mittens is a playful kitten with stunning blue eyes. She's very social and would do well with other cats or as an only pet with lots of attention.",
-      "personality": ["Playful", "Social", "Energetic"],
+      "personality": [
+        "Playful",
+        "Social",
+        "Energetic"
+      ],
       "medicalInfo": "Age-appropriate vaccinations, scheduled to be spayed",
       "location": "Pet City Animal Shelter"
     },
@@ -87,7 +111,11 @@
       "gender": "Male",
       "image": "https://images.pexels.com/photos/3361739/pexels-photo-3361739.jpeg",
       "description": "Charlie is a gentle rabbit who enjoys being petted and is litter trained. He would make a wonderful companion for a quiet household.",
-      "personality": ["Gentle", "Quiet", "Affectionate"],
+      "personality": [
+        "Gentle",
+        "Quiet",
+        "Affectionate"
+      ],
       "medicalInfo": "Neutered, vaccinated",
       "location": "Pet City Animal Shelter"
     },
@@ -100,7 +128,11 @@
       "gender": "Female",
       "image": "https://images.pexels.com/photos/1390361/pexels-photo-1390361.jpeg",
       "description": "Bella is a sweet, medium-sized dog with a gentle nature. She loves going for walks and playing fetch in the yard.",
-      "personality": ["Sweet", "Gentle", "Active"],
+      "personality": [
+        "Sweet",
+        "Gentle",
+        "Active"
+      ],
       "medicalInfo": "Spayed, vaccinated, heartworm negative",
       "location": "Pet City Animal Shelter"
     }
