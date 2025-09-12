@@ -478,28 +478,35 @@ const LandingPage: React.FC = () => {
 
                     <form onSubmit={handlePetProfileSubmit} className="space-y-6">
                       {/* Species */}
-                      <div>
+                      <div className="relative">
                         <label className="block text-sm font-medium text-white mb-2">
                           Species
                         </label>
                         <select
                           value={petProfile.species}
                           onChange={(e) => handleInputChange('petProfile.species', e.target.value)}
-                          className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 text-white bg-white/20 ${errors.species
+                          className={`w-full appearance-none px-4 py-3 rounded-xl border text-white bg-white/20 pr-10 transition-all duration-300 ${errors.species
                             ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                             : 'border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200'
                             }`}
                           required
                         >
-                          <option className='text-black' value="">Select species</option>
-                          <option value="Dog">Dog</option>
-                          <option value="Cat">Cat</option>
-                          <option value="Bird">Bird</option>
-                          <option value="Fish">Fish</option>
-                          <option value="Rabbit">Rabbit</option>
-                          <option value="Hamster">Hamster</option>
-                          <option value="Other">Other</option>
+                          <option className="text-black" value="">Select species</option>
+                          <option className="text-black" value="Dog">Dog</option>
+                          <option className="text-black" value="Cat">Cat</option>
+                          <option className="text-black" value="Bird">Bird</option>
+                          <option className="text-black" value="Fish">Fish</option>
+                          <option className="text-black" value="Rabbit">Rabbit</option>
+                          <option className="text-black" value="Hamster">Hamster</option>
+                          <option className="text-black" value="Other">Other</option>
                         </select>
+                        {/* Custom arrow */}
+                        <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+
                         {errors.species && (
                           <div className="flex items-center mt-2 text-red-600 text-sm">
                             <AlertCircle className="w-4 h-4 mr-1" />
@@ -507,6 +514,7 @@ const LandingPage: React.FC = () => {
                           </div>
                         )}
                       </div>
+
 
                       {/* Breed */}
                       <div>
@@ -725,6 +733,196 @@ const LandingPage: React.FC = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How To Use Section */}
+      <section className="py-20 bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+              How to <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Use FurEver Care</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Getting started is easy! Just follow these simple steps to begin your journey with us.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                step: "1",
+                title: "Sign Up",
+                description: "Enter your name, choose your role (Pet Owner, Veterinarian, or Animal Shelter) and create your account.",
+                icon: Users,
+              },
+              {
+                step: "2",
+                title: "Create Profile",
+                description: "If you’re a Pet Owner, add details about your pet including species, breed, and health info.",
+                icon: Heart,
+              },
+              {
+                step: "3",
+                title: "Explore Dashboard",
+                description: "Access your personalized dashboard for managing pets, appointments, and connections.",
+                icon: Stethoscope,
+              },
+              {
+                step: "4",
+                title: "Connect & Care",
+                description: "Join the community, get 24/7 veterinary support, and give your pets the care they deserve.",
+                icon: Globe,
+              }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg mb-4">
+                  {item.step}
+                </div>
+                <item.icon className="w-8 h-8 text-purple-600 mb-3" />
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+              Frequently Asked <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Questions</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Here are answers to the most common questions about using FurEver Care.
+            </p>
+          </motion.div>
+
+          <div className="space-y-6 max-w-4xl mx-auto">
+            {[
+              {
+                q: "Is FurEver Care free to use?",
+                a: "Yes! Creating an account and managing your pet’s basic profile is completely free. Premium features may be added later for advanced services."
+              },
+              {
+                q: "Can I add more than one pet?",
+                a: "Absolutely. You can create multiple pet profiles under the same account, making it easy to manage your entire furry family."
+              },
+              {
+                q: "Do veterinarians and shelters need a different account?",
+                a: "Yes, when signing up you’ll choose your role (Pet Owner, Veterinarian, or Animal Shelter). Each role has a customized dashboard."
+              },
+              {
+                q: "Can I update my pet’s details later?",
+                a: "Of course! You can edit your pet’s profile anytime, update health records, and keep everything up to date."
+              },
+              {
+                q: "Is my data safe?",
+                a: "Yes, your data is stored securely and never shared without your permission. We use encryption and industry best practices to protect your information."
+              }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="p-6 bg-gray-50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">{item.q}</h3>
+                <p className="text-gray-600">{item.a}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+              What <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">People Said</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Hear from our community of pet owners, veterinarians, and shelters who use FurEver Care.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "Pet Owner",
+                feedback:
+                  "FurEver Care has been a lifesaver! I can easily track my dog's health and connect with vets anytime.",
+                img: "https://randomuser.me/api/portraits/women/44.jpg"
+              },
+              {
+                name: "Dr. Michael Lee",
+                role: "Veterinarian",
+                feedback:
+                  "This platform makes it so easy to provide care remotely. I love being able to help more pet parents.",
+                img: "https://randomuser.me/api/portraits/men/32.jpg"
+              },
+              {
+                name: "Emma Davis",
+                role: "Animal Shelter Manager",
+                feedback:
+                  "Managing pets and adoptions is much simpler now. FurEver Care has made our work smoother and faster.",
+                img: "https://randomuser.me/api/portraits/women/68.jpg"
+              }
+            ].map((person, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300"
+              >
+                <div className="flex items-center mb-4">
+                  <img
+                    src={person.img}
+                    alt={person.name}
+                    className="w-14 h-14 rounded-full object-cover border-2 border-purple-500"
+                  />
+                  <div className="ml-4">
+                    <h3 className="text-lg font-semibold text-gray-800">{person.name}</h3>
+                    <p className="text-sm text-gray-500">{person.role}</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 italic">“{person.feedback}”</p>
               </motion.div>
             ))}
           </div>

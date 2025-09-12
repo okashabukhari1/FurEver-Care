@@ -9,24 +9,25 @@ const About: React.FC = () => {
         <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-50 via-white to-pink-50">
             <Navbar />
 
-            {/* Hero Section */}
-            <section className="relative py-28 text-center bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 text-white">
-                <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                    className="text-5xl md:text-6xl font-extrabold mb-6"
-                >
-                    About <span className="underline decoration-yellow-300">FurEver Care</span>
-                </motion.h1>
-                <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="max-w-2xl mx-auto text-lg md:text-xl opacity-90"
-                >
-                    Building a world where pets and families live healthier, happier, and more connected lives.
-                </motion.p>
+            {/* About Header */}
+            <section className="py-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center mb-12"
+                    >
+                        <div className="flex items-center justify-center mb-4">
+                            <Heart className="w-12 h-12 text-pink-500 mr-4" />
+                            <h1 className="text-4xl lg:text-5xl font-bold text-gray-800">
+                                About <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">FurEver Care</span>
+                            </h1>
+                        </div>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Building a world where pets and families live healthier, happier, and more connected lives.
+                        </p>
+                    </motion.div>
+                </div>
             </section>
 
             {/* Mission Section */}

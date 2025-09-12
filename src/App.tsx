@@ -16,6 +16,12 @@ import PetCare from "./pages/PetCare";
 import Adoption from "./pages/Adoption";
 import AdoptionRequests from "./pages/AdoptionRequests";
 import Wishlist from './pages/Wishlist';
+import FeedingGuide from './pages/FeedingGuide';
+import GroomingVideos from './pages/GroomingVideos';
+import HealthTips from './pages/HealthTips';
+import TrainingTips from './pages/TrainingTips';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +51,12 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/About" element={<About />} />
               <Route path="/Feedback" element={<Feedback />} />
+              <Route path="/FeedingGuide" element={<FeedingGuide />} />
+              <Route path="/GroomingVideos" element={<GroomingVideos />} />
+              <Route path="/HealthTips" element={<HealthTips />} />
+              <Route path="/TrainingTips" element={<TrainingTips />} />
+              <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+              <Route path="/TermsOfService" element={<TermsOfService />} />
               <Route path="/petcare" element={<PetCare />} />
               <Route path="/adoption" element={<Adoption />} />
               <Route path="/AdoptionRequests" element={<AdoptionRequests />} />

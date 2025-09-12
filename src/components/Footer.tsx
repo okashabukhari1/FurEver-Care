@@ -20,18 +20,25 @@ const Footer: React.FC = () => {
               <span className="text-2xl font-bold">FurEver Care</span>
             </div>
             <p className="text-gray-300 leading-relaxed">
-              Providing exceptional care and love for your furry family members. 
+              Providing exceptional care and love for your furry family members.
               They deserve forever love, and we're here to help you give it.
             </p>
             <div className="flex space-x-4">
-              {[Facebook, Twitter, Instagram, Youtube].map((Icon, index) => (
+              {[
+                { icon: Facebook, link: "https://facebook.com/" },
+                { icon: Twitter, link: "https://twitter.com/" },
+                { icon: Instagram, link: "https://instagram.com/" },
+                { icon: Youtube, link: "https://youtube.com/" }
+              ].map((item, index) => (
                 <motion.a
                   key={index}
                   whileHover={{ scale: 1.2, y: -2 }}
                   className="text-gray-400 hover:text-pink-400 transition-colors duration-300"
-                  href="#"
+                  href={item.link}
+                  target="_blank" // ✅ opens in new tab
+                  rel="noopener noreferrer"
                 >
-                  <Icon className="h-5 w-5" />
+                  <item.icon className="h-5 w-5" />
                 </motion.a>
               ))}
             </div>
@@ -74,11 +81,17 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-xl font-semibold text-pink-400">Our Services</h3>
             <ul className="space-y-2">
-              {['Pet Health Monitoring', 'Grooming Tips', 'Training Guides', 'Nutrition Planning', '24/7 Emergency Support'].map((service) => (
-                <li key={service}>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors duration-300 hover:pl-2">
-                    {service}
-                  </a>
+              {[
+                { label: 'Pet Health Monitoring', to: '/HealthTips' },
+                { label: 'Grooming Tips', to: '/GroomingVideos' },
+                { label: 'Training Guides', to: '/TrainingTips' },
+                { label: 'Nutrition Planning', to: '/FeedingGuide' },
+                { label: '24/7 Emergency Support', to: '/emergency' }
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link to={item.to} className="text-gray-300 hover:text-white transition-colors duration-300 hover:pl-2">
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -122,8 +135,8 @@ const Footer: React.FC = () => {
             © 2025 FurEver Care. All rights reserved. Made with ❤️ for pet lovers.
           </p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Terms of Service</a>
+            <a href="/PrivacyPolicy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Privacy Policy</a>
+            <a href="/TermsOfService" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Terms of Service</a>
             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Cookie Policy</a>
           </div>
         </motion.div>

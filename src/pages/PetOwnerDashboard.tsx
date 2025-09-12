@@ -189,7 +189,7 @@ const PetOwnerDashboard: React.FC = () => {
       description: "Personalized feeding schedules and nutrition tips",
       color: "from-green-500 to-emerald-500",
       bgColor: "bg-green-50",
-      link: "/pet-care#feeding"
+      link: "/FeedingGuide"
     },
     {
       title: "Grooming Videos",
@@ -197,7 +197,7 @@ const PetOwnerDashboard: React.FC = () => {
       description: "Step-by-step grooming tutorials and tips",
       color: "from-blue-500 to-cyan-500",
       bgColor: "bg-blue-50",
-      link: "/pet-care#grooming"
+      link: "/GroomingVideos"
     },
     {
       title: "Health Tips",
@@ -205,7 +205,7 @@ const PetOwnerDashboard: React.FC = () => {
       description: "Expert health advice and wellness guides",
       color: "from-purple-500 to-indigo-500",
       bgColor: "bg-purple-50",
-      link: "/pet-care#health"
+      link: "/HealthTips"
     },
     {
       title: "Training Tips",
@@ -213,7 +213,7 @@ const PetOwnerDashboard: React.FC = () => {
       description: "Professional training guides and behavioral tips",
       color: "from-yellow-500 to-orange-500",
       bgColor: "bg-yellow-50",
-      link: "/pet-care#training"
+      link: "/TrainingTips"
     },
     {
       title: "Pet Products",
