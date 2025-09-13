@@ -135,9 +135,15 @@ const Footer: React.FC = () => {
             © 2025 FurEver Care. All rights reserved. Made with ❤️ for pet lovers.
           </p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
-            <a href="/PrivacyPolicy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Privacy Policy</a>
-            <a href="/TermsOfService" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Terms of Service</a>
-            <a href="/CookiePolicy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Cookie Policy</a>
+            <Link to={"/PrivacyPolicy"} className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+              PrivacyPolicy
+            </Link>
+            <Link to={"/TermsOfService"} className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+              Terms of Service
+            </Link>
+            <Link to={"/CookiePolicy"} className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+              Cookie Policy
+            </Link>
           </div>
         </motion.div>
       </div>
